@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>CoachBrain AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #060608;
+      --surface: #0c0c11;
+      --surface-card: #12121a;
+      --border: #1e1e2d;
+      --orange: #e84e1b;
+      --orange-glow: rgba(232, 78, 27, 0.35);
+      --text: #ffffff;
+      --text-muted: #8f9cae;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      height: -webkit-fill-available;
+      overflow: hidden;
+    }
+
+    /* Header & Lang Toggle */
+    header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px;
+      padding-top: calc(16px + env(safe-area-inset-top));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-logo {
+      font-size: 22px;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title span {
+      color: var(--orange);
+    }
+
+    .lang-toggle {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px;
+      display: flex;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--orange);
+      color: #fff;
+      box-shadow: 0 2px 8px var(--orange-glow);
+    }
+
+    /* Tabs Bar */
+    .tabs-bar {
+      display: flex;
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 14px 10px;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .tab-btn.active {
+      color: #fff;
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--orange);
+      box-shadow: 0 -2px 10px var(--orange);
+    }
+
+    /* Main Content Area */
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: #fff;
+      padding: 14px;
+      font-family: var(--font);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s ease;
+      -webkit-appearance: none;
+    }
+
+    select:focus, input:focus {
+      border-color: var(--orange);
+    }
+
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-wrapper::after {
+      content: '▼';
+      font-size: 10px;
+      color: var(--text-muted);
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .action-btn {
+      width: 100%;
+      background: linear-gradient(90deg, var(--orange), #ff6a39);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 800;
+      padding: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(232, 78, 27, 0.3);
+    }
+
+    .action-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Result Card */
+    .result-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 24px;
+      text-align: left;
+      display: none;
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .result-title {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .result-body {
+      font-size: 13.5px;
+      color: #e2e8f0;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    /* Chat Tab Layout */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 120px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+      margin: -20px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .message {
+      max-width: 85%;
+      padding: 14px 16px;
+      border-radius: 16px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      word-wrap: break-word;
+    }
+
+    .message.user {
+      background: var(--orange);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 10px rgba(232, 78, 27, 0.2);
+    }
+
+    .message.ai {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      color: #e2e8f0;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-input-area {
+      background-color: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      color: #fff;
+      padding: 12px 18px;
+      font-family: var(--font);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .send-btn {
+      width: 42px;
+      height: 42px;
+      background: var(--orange);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px var(--orange-glow);
+    }
+
+    /* Loader */
+    .loader {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--orange);
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1.0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span class="brand-logo">🏀</span>
+      <div class="brand-title">Coach<span>Brain</span> AI</div>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLanguage('es')">ES</button>
+      <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+    </div>
+  </header>
+
+  <div class="tabs-bar">
+    <button class="tab-btn active" onclick="switchTab('planner')">Practice Planner</button>
+    <button class="tab-btn" onclick="switchTab('chat')">Playbook AI Chat</button>
+  </div>
+
+  <div class="content-area">
+    <!-- Planner Tab -->
+    <div id="planner-tab" class="tab-content active">
+      <div class="form-group">
+        <label id="lbl-category">Categoría del Equipo</label>
+        <div class="select-wrapper">
+          <select id="param-category">
+            <option value="U10">Sub-10 / Minibasket</option>
+            <option value="U14" selected>Sub-14 / Infantil</option>
+            <option value="U18">Sub-18 / Juvenil</option>
+            <option value="Adults">Adultos / Profesional</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label id="lbl-level">Nivel de Juego</label>
+        <div class="select-wrapper">
+          <select id="param-level">
+            <option value="Principiante">Principiante / Básico</option>
+            <option value="Intermedio" selected>Intermedio / Desarrollo</option>
+            <option value="Avanzado">Avanzado / Competitivo</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label id="lbl-duration">Duración del Entrenamiento</label>
+        <div class="select-wrapper">
+          <select id="param-duration">
+            <option value="45 minutos">45 minutos</option>
+            <option value="60 minutos" selected>60 minutos</option>
+            <option value="90 minutos">90 minutos</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label id="lbl-focus">Foco Técnico del Día</label>
+        <div class="select-wrapper">
+          <select id="param-focus">
+            <option value="Tiro y Mecánica">Tiro y Mecánica de Lanzamiento</option>
+            <option value="Manejo de Balón y Drible" selected>Drible y Control de Balón</option>
+            <option value="Pases y Transiciones">Pases y Contraataque</option>
+            <option value="Defensa Individual">Defensa Individual y Posicionamiento</option>
+            <option value="Físico y Agilidad">Impulsión, Velocidad y Agilidad</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="action-btn" id="btn-generate" onclick="generatePracticePlan()">Generar Entrenamiento con IA</button>
+
+      <div class="loader" id="planner-loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="result-card" id="result-box">
+        <div class="result-header">
+          <span class="result-title" id="lbl-result-title">Entrenamiento Sugerido</span>
+          <button class="copy-btn" id="btn-copy" onclick="copyResult()">Copiar Plan</button>
+        </div>
+        <div class="result-body" id="result-text"></div>
+      </div>
+    </div>
+
+    <!-- Chat Tab -->
+    <div id="chat-tab" class="tab-content">
+      <div class="chat-container">
+        <div class="chat-messages" id="chat-box">
+          <div class="message ai" id="chat-welcome">¡Hola! Soy tu asistente de Playbook. ¿En qué táctica o ejercicio te gustaría trabajar hoy?</div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" class="chat-input" id="chat-input-field" placeholder="Escribe tu pregunta tática aquí..." onkeydown="handleChatKey(event)">
+          <button class="send-btn" onclick="sendChatMessage()">➔</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'es';
+    let currentTab = 'planner';
+
+    const translations = {
+      es: {
+        plannerTab: "Planificador",
+        chatTab: "Playbook AI Chat",
+        lblCategory: "Categoría del Equipo",
+        lblLevel: "Nivel de Juego",
+        lblDuration: "Duración del Entrenamiento",
+        lblFocus: "Foco Técnico del Día",
+        btnGenerate: "Generar Entrenamiento con IA",
+        lblResultTitle: "Entrenamiento Sugerido",
+        btnCopy: "Copiar Plan",
+        chatPlaceholder: "Escribe tu pregunta táctica aquí...",
+        chatWelcome: "¡Hola! Soy tu asistente de Playbook. ¿En qué táctica o ejercicio te gustaría trabajar hoy?",
+        categories: [
+          { val: "U10", text: "Sub-10 / Minibasket" },
+          { val: "U14", text: "Sub-14 / Infantil" },
+          { val: "U18", text: "Sub-18 / Juvenil" },
+          { val: "Adults", text: "Adultos / Profesional" }
+        ],
+        levels: [
+          { val: "Principiante", text: "Principiante / Básico" },
+          { val: "Intermedio", text: "Intermedio / Desarrollo" },
+          { val: "Avanzado", text: "Avanzado / Competitivo" }
+        ],
+        focuses: [
+          { val: "Tiro y Mecánica", text: "Tiro y Mecánica de Lanzamiento" },
+          { val: "Manejo de Balón y Drible", text: "Drible y Control de Balón" },
+          { val: "Pases y Transiciones", text: "Pases y Contraataque" },
+          { val: "Defensa Individual", text: "Defensa Individual y Posicionamiento" },
+          { val: "Físico y Agilidad", text: "Impulsión, Velocidad y Agilidad" }
+        ]
+      },
+      en: {
+        plannerTab: "Planner",
+        chatTab: "Playbook AI Chat",
+        lblCategory: "Team Category",
+        lblLevel: "Game Level",
+        lblDuration: "Practice Duration",
+        lblFocus: "Technical Focus",
+        btnGenerate: "Generate Practice with AI",
+        lblResultTitle: "Suggested Plan",
+        btnCopy: "Copy Plan",
+        chatPlaceholder: "Ask your tactical question here...",
+        chatWelcome: "Hello! I am your Playbook assistant. What tactics or drills would you like to work on today?",
+        categories: [
+          { val: "U10", text: "Under-10 / Minibasket" },
+          { val: "U14", text: "Under-14 / Development" },
+          { val: "U18", text: "Under-18 / Youth" },
+          { val: "Adults", text: "Adults / Professional" }
+        ],
+        levels: [
+          { val: "Principiante", text: "Beginner / Basic" },
+          { val: "Intermedio", text: "Intermediate / Development" },
+          { val: "Avanzado", text: "Advanced / Competitive" }
+        ],
+        focuses: [
+          { val: "Tiro y Mecánica", text: "Shooting & Shot Mechanics" },
+          { val: "Manejo de Balón y Drible", text: "Dribbling & Ball Handling" },
+          { val: "Pases y Transiciones", text: "Passing & Fast Break" },
+          { val: "Defensa Individual", text: "Man-to-Man Defense & Stance" },
+          { val: "Físico y Agilidad", text: "Conditioning, Jump & Agility" }
+        ]
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const trans = translations[lang];
+      document.querySelectorAll('.tab-btn')[0].textContent = trans.plannerTab;
+      document.querySelectorAll('.tab-btn')[1].textContent = trans.chatTab;
+      document.getElementById('lbl-category').textContent = trans.lblCategory;
+      document.getElementById('lbl-level').textContent = trans.lblLevel;
+      document.getElementById('lbl-duration').textContent = trans.lblDuration;
+      document.getElementById('lbl-focus').textContent = trans.lblFocus;
+      document.getElementById('btn-generate').textContent = trans.btnGenerate;
+      document.getElementById('lbl-result-title').textContent = trans.lblResultTitle;
+      document.getElementById('btn-copy').textContent = trans.btnCopy;
+      document.getElementById('chat-input-field').placeholder = trans.chatPlaceholder;
+
+      // Welcome message if chat empty
+      if(document.getElementById('chat-box').children.length === 1) {
+        document.getElementById('chat-welcome').textContent = trans.chatWelcome;
+      }
+
+      // Rebuild selectors options
+      rebuildSelector('param-category', trans.categories);
+      rebuildSelector('param-level', trans.levels);
+      rebuildSelector('param-focus', trans.focuses);
+    }
+
+    function rebuildSelector(id, options) {
+      const select = document.getElementById(id);
+      const activeVal = select.value;
+      select.innerHTML = '';
+      options.forEach(opt => {
+        const option = document.createElement('option');
+        option.value = opt.val;
+        option.textContent = opt.text;
+        if(opt.val === activeVal) option.selected = true;
+        select.appendChild(option);
+      });
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.getElementById(tab + '-tab').classList.add('active');
+    }
+
+    async function generatePracticePlan() {
+      const category = document.getElementById('param-category').value;
+      const level = document.getElementById('param-level').value;
+      const duration = document.getElementById('param-duration').value;
+      const focus = document.getElementById('param-focus').value;
+
+      const loader = document.getElementById('planner-loader');
+      const resultBox = document.getElementById('result-box');
+      const resultText = document.getElementById('result-text');
+
+      loader.style.display = 'flex';
+      resultBox.style.display = 'none';
+
+      try {
+        const response = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'planner',
+            language: currentLang,
+            category,
+            level,
+            duration,
+            focus
+          })
+        });
+
+        const resData = await response.json();
+        if (resData.error) {
+          resultText.textContent = "Error: " + resData.error;
+        } else {
+          resultText.textContent = resData.result;
+        }
+        resultBox.style.display = 'block';
+      } catch(e) {
+        resultText.textContent = currentLang === 'es' ? "Error al conectar con la IA." : "Failed to connect to the AI.";
+        resultBox.style.display = 'block';
+      } finally {
+        loader.style.display = 'none';
+      }
+    }
+
+    function copyResult() {
+      const text = document.getElementById('result-text').textContent;
+      navigator.clipboard.writeText(text);
+      const copyBtn = document.getElementById('btn-copy');
+      const originalText = copyBtn.textContent;
+      copyBtn.textContent = currentLang === 'es' ? '¡Copiado!' : 'Copied!';
+      setTimeout(() => { copyBtn.textContent = originalText; }, 1800);
+    }
+
+    function handleChatKey(event) {
+      if(event.key === 'Enter') {
+        sendChatMessage();
+      }
+    }
+
+    async function sendChatMessage() {
+      const input = document.getElementById('chat-input-field');
+      const messageText = input.value.trim();
+      if(!messageText) return;
+
+      input.value = '';
+      const chatBox = document.getElementById('chat-box');
+
+      // Append user bubble
+      const userBubble = document.createElement('div');
+      userBubble.className = 'message user';
+      userBubble.textContent = messageText;
+      chatBox.appendChild(userBubble);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Append loading bubble
+      const loadingBubble = document.createElement('div');
+      loadingBubble.className = 'message ai';
+      loadingBubble.innerHTML = '<div class="loader" style="display:flex"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+      chatBox.appendChild(loadingBubble);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const response = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'chat',
+            language: currentLang,
+            message: messageText
+          })
+        });
+
+        const resData = await response.json();
+        chatBox.removeChild(loadingBubble);
+
+        const aiBubble = document.createElement('div');
+        aiBubble.className = 'message ai';
+        if (resData.error) {
+          aiBubble.textContent = "Error: " + resData.error;
+        } else {
+          aiBubble.textContent = resData.result;
+        }
+        chatBox.appendChild(aiBubble);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+      } catch(e) {
+        chatBox.removeChild(loadingBubble);
+        const aiBubble = document.createElement('div');
+        aiBubble.className = 'message ai';
+        aiBubble.textContent = currentLang === 'es' ? "Error al conectar." : "Connection failed.";
+        chatBox.appendChild(aiBubble);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
+  </script>
+</body>
+</html>
