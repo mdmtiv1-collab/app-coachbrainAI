@@ -27,13 +27,18 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html {
+      height: 100%;
+      height: -webkit-fill-available;
+    }
+
     body {
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font);
       display: flex;
       flex-direction: column;
-      height: 100vh;
+      height: 100%;
       height: -webkit-fill-available;
       overflow: hidden;
     }
@@ -137,6 +142,7 @@
     .content-area {
       flex: 1;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       padding: 20px;
       padding-bottom: calc(20px + env(safe-area-inset-bottom));
     }
@@ -272,6 +278,7 @@
     .chat-messages {
       flex: 1;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       padding: 20px;
       display: flex;
       flex-direction: column;
