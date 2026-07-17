@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -41,6 +41,101 @@
       height: 100%;
       height: -webkit-fill-available;
       overflow: hidden;
+    }
+
+    /* Onboarding Splash Screen */
+    .splash-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #181824 0%, #060608 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .splash-overlay.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .splash-card {
+      background: rgba(18, 18, 26, 0.75);
+      border: 1px solid rgba(232, 78, 27, 0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 50px 30px;
+      text-align: center;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 40px rgba(232, 78, 27, 0.05);
+      transform: translateY(0);
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .splash-logo {
+      font-size: 64px;
+      margin-bottom: 20px;
+      display: inline-block;
+      filter: drop-shadow(0 0 15px var(--orange-glow));
+    }
+    .splash-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+    }
+    .splash-title span {
+      color: var(--orange);
+      text-shadow: 0 0 15px var(--orange-glow);
+    }
+    .splash-subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 35px;
+    }
+    .splash-btn {
+      width: 100%;
+      background: linear-gradient(90deg, var(--orange), #ff6a39);
+      border: none;
+      border-radius: 14px;
+      color: #fff;
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 800;
+      padding: 18px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px var(--orange-glow);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .splash-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(232, 78, 27, 0.5);
+    }
+    .splash-btn span {
+      transition: transform 0.2s ease;
+    }
+    .splash-btn:hover span {
+      transform: translateX(4px);
+    }
+
+    /* Main Container wrapper */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
     }
 
     /* Header & Lang Toggle */
@@ -258,6 +353,26 @@
       padding: 6px 12px;
       border-radius: 8px;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .save-btn {
+      background: rgba(232, 78, 27, 0.1);
+      border: 1px solid var(--orange);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .save-btn:hover {
+      background: var(--orange);
+      box-shadow: 0 0 10px var(--orange-glow);
     }
 
     .result-body {
@@ -292,6 +407,8 @@
       font-size: 13.5px;
       line-height: 1.5;
       word-wrap: break-word;
+      display: flex;
+      flex-direction: column;
     }
 
     .message.user {
@@ -308,6 +425,59 @@
       color: #e2e8f0;
       align-self: flex-start;
       border-bottom-left-radius: 4px;
+    }
+
+    .msg-save-btn {
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      align-self: flex-end;
+    }
+    .msg-save-btn:hover {
+      border-color: var(--orange);
+      color: #fff;
+    }
+
+    .prompt-pills-container {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 16px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .prompt-pills-container::-webkit-scrollbar {
+      display: none;
+    }
+    .prompt-pill {
+      white-space: nowrap;
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .prompt-pill:hover {
+      border-color: var(--orange);
+      color: #fff;
+      background: rgba(232, 78, 27, 0.05);
     }
 
     .chat-input-area {
@@ -347,6 +517,221 @@
       box-shadow: 0 2px 8px var(--orange-glow);
     }
 
+    /* Playbook Tab Styles */
+    .playbook-header {
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .playbook-header h2 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .playbook-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .playbook-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .playbook-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      height: 185px;
+      position: relative;
+    }
+    .playbook-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+    .playbook-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .playbook-tag {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+    .playbook-tag.planner {
+      background: rgba(232, 78, 27, 0.1);
+      color: var(--orange);
+      border: 1px solid rgba(232, 78, 27, 0.2);
+    }
+    .playbook-tag.chat {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    .playbook-delete-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+    }
+    .playbook-delete-btn:hover {
+      color: #ef4444;
+    }
+    .playbook-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #fff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .playbook-card-preview {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      flex-grow: 1;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    .playbook-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      font-size: 11px;
+    }
+    .playbook-card-date {
+      color: var(--text-muted);
+    }
+    .playbook-card-action {
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .playbook-empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--text-muted);
+    }
+    .playbook-empty-state .empty-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    .playbook-empty-state p {
+      font-size: 13px;
+    }
+
+    /* Modal overlays */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(6, 6, 8, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 600px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .modal-close-btn:hover {
+      color: #fff;
+    }
+
+    .playbook-modal {
+      max-width: 650px;
+    }
+    .playbook-modal-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .playbook-modal-badge.planner {
+      background: rgba(232, 78, 27, 0.1);
+      color: var(--orange);
+    }
+    .playbook-modal-badge.chat {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+    }
+    .playbook-modal-content {
+      background: rgba(6, 6, 8, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      max-height: 50vh;
+      overflow-y: auto;
+      color: #e2e8f0;
+      margin-bottom: 20px;
+    }
+
     /* Loader */
     .loader {
       display: none;
@@ -375,112 +760,198 @@
 </head>
 <body>
 
-  <header>
-    <div class="brand">
-      <span class="brand-logo">🏀</span>
-      <div class="brand-title">Coach<span>Brain</span> AI</div>
+  <!-- Onboarding Splash Screen -->
+  <div id="splash-screen" class="splash-overlay">
+    <div class="splash-card">
+      <div class="splash-logo">🏀</div>
+      <h1 class="splash-title">Coach<span>Brain</span> AI</h1>
+      <p class="splash-subtitle" id="splash-sub-text">Your 24/7 Personal Basketball Coaching Assistant</p>
+      <button class="splash-btn" id="splash-start-btn" onclick="startApp()">
+        START PRACTICE <span>➔</span>
+      </button>
     </div>
-    <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLanguage('es')">ES</button>
-      <button class="lang-btn" onclick="setLanguage('en')">EN</button>
-      <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
-    </div>
-  </header>
-
-  <div class="tabs-bar">
-    <button class="tab-btn active" onclick="switchTab('planner')">Practice Planner</button>
-    <button class="tab-btn" onclick="switchTab('chat')">Playbook AI Chat</button>
   </div>
 
-  <div class="content-area">
-    <!-- Planner Tab -->
-    <div id="planner-tab" class="tab-content active">
-      <div class="form-group">
-        <label id="lbl-category">Categoría del Equipo</label>
-        <div class="select-wrapper">
-          <select id="param-category">
-            <option value="U10">Sub-10 / Minibasket</option>
-            <option value="U14" selected>Sub-14 / Infantil</option>
-            <option value="U18">Sub-18 / Juvenil</option>
-            <option value="Adults">Adultos / Profesional</option>
-          </select>
-        </div>
+  <!-- Main Application Container -->
+  <div id="app-container" class="app-container" style="display: none;">
+    <header>
+      <div class="brand">
+        <span class="brand-logo">🏀</span>
+        <div class="brand-title">Coach<span>Brain</span> AI</div>
       </div>
-
-      <div class="form-group">
-        <label id="lbl-level">Nivel de Juego</label>
-        <div class="select-wrapper">
-          <select id="param-level">
-            <option value="Principiante">Principiante / Básico</option>
-            <option value="Intermedio" selected>Intermedio / Desarrollo</option>
-            <option value="Avanzado">Avanzado / Competitivo</option>
-          </select>
-        </div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" onclick="setLanguage('es')">ES</button>
       </div>
+    </header>
 
-      <div class="form-group">
-        <label id="lbl-duration">Duración del Entrenamiento</label>
-        <div class="select-wrapper">
-          <select id="param-duration">
-            <option value="45 minutos">45 minutos</option>
-            <option value="60 minutos" selected>60 minutos</option>
-            <option value="90 minutos">90 minutos</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label id="lbl-focus">Foco Técnico del Día</label>
-        <div class="select-wrapper">
-          <select id="param-focus">
-            <option value="Tiro y Mecánica">Tiro y Mecánica de Lanzamiento</option>
-            <option value="Manejo de Balón y Drible" selected>Drible y Control de Balón</option>
-            <option value="Pases y Transiciones">Pases y Contraataque</option>
-            <option value="Defensa Individual">Defensa Individual y Posicionamiento</option>
-            <option value="Físico y Agilidad">Impulsión, Velocidad y Agilidad</option>
-          </select>
-        </div>
-      </div>
-
-      <button class="action-btn" id="btn-generate" onclick="generatePracticePlan()">Generar Entrenamiento con IA</button>
-
-      <div class="loader" id="planner-loader">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-
-      <div class="result-card" id="result-box">
-        <div class="result-header">
-          <span class="result-title" id="lbl-result-title">Entrenamiento Sugerido</span>
-          <button class="copy-btn" id="btn-copy" onclick="copyResult()">Copiar Plan</button>
-        </div>
-        <div class="result-body" id="result-text"></div>
-      </div>
+    <div class="tabs-bar">
+      <button id="tab-planner-btn" class="tab-btn active" onclick="switchTab('planner')">Practice Planner</button>
+      <button id="tab-chat-btn" class="tab-btn" onclick="switchTab('chat')">Playbook AI Chat</button>
+      <button id="tab-playbook-btn" class="tab-btn" onclick="switchTab('playbook')">My Playbook</button>
     </div>
 
-    <!-- Chat Tab -->
-    <div id="chat-tab" class="tab-content">
-      <div class="chat-container">
-        <div class="chat-messages" id="chat-box">
-          <div class="message ai" id="chat-welcome">¡Hola! Soy tu asistente de Playbook. ¿En qué táctica o ejercicio te gustaría trabajar hoy?</div>
+    <div class="content-area">
+      <!-- Planner Tab -->
+      <div id="planner-tab" class="tab-content active">
+        <div class="form-group">
+          <label id="lbl-category">Team Category</label>
+          <div class="select-wrapper">
+            <select id="param-category">
+              <!-- Rebuilt dynamically -->
+            </select>
+          </div>
         </div>
-        <div class="chat-input-area">
-          <input type="text" class="chat-input" id="chat-input-field" placeholder="Escribe tu pregunta tática aquí..." onkeydown="handleChatKey(event)">
-          <button class="send-btn" onclick="sendChatMessage()">➔</button>
+
+        <div class="form-group">
+          <label id="lbl-level">Game Level</label>
+          <div class="select-wrapper">
+            <select id="param-level">
+              <!-- Rebuilt dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label id="lbl-duration">Practice Duration</label>
+          <div class="select-wrapper">
+            <select id="param-duration">
+              <option value="45 minutos">45 minutes</option>
+              <option value="60 minutos" selected>60 minutes</option>
+              <option value="90 minutos">90 minutes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label id="lbl-focus">Technical Focus</label>
+          <div class="select-wrapper">
+            <select id="param-focus">
+              <!-- Rebuilt dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <button class="action-btn" id="btn-generate" onclick="generatePracticePlan()">Generate Practice with AI</button>
+
+        <div class="loader" id="planner-loader">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+
+        <div class="result-card" id="result-box">
+          <div class="result-header">
+            <span class="result-title" id="lbl-result-title">Suggested Plan</span>
+            <div style="display: flex; gap: 8px;">
+              <button class="copy-btn" id="btn-copy" onclick="copyResult()">Copy Plan</button>
+              <button class="save-btn" id="btn-save-planner" onclick="savePlannerResult()" style="display: none;">💾 Save</button>
+            </div>
+          </div>
+          <div class="result-body" id="result-text"></div>
+        </div>
+      </div>
+
+      <!-- Chat Tab -->
+      <div id="chat-tab" class="tab-content">
+        <div class="chat-container">
+          <div class="chat-messages" id="chat-box">
+            <div class="message ai" id="chat-welcome">Hello! I am your Playbook assistant. What tactics or drills would you like to work on today?</div>
+          </div>
+          <div class="prompt-pills-container" id="prompt-pills"></div>
+          <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chat-input-field" placeholder="Ask your tactical question here..." onkeydown="handleChatKey(event)">
+            <button class="send-btn" onclick="sendChatMessage()">➔</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Playbook Tab -->
+      <div id="playbook-tab" class="tab-content">
+        <div class="playbook-header">
+          <h2 id="lbl-playbook-title">Saved Playbook</h2>
+          <p id="lbl-playbook-subtitle">Access your stored practice plans and tactical answers here.</p>
+        </div>
+        <div id="playbook-list" class="playbook-grid">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Playbook Item Modal -->
+  <div id="playbookModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content playbook-modal">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <h2 id="playbook-modal-title" style="font-size: 16px; font-weight: 800;">Plan Title</h2>
+          <span class="playbook-modal-badge planner" id="playbook-modal-badge">Planner</span>
+        </div>
+        <button class="modal-close-btn" onclick="closePlaybookModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="playbook-modal-content" id="playbook-modal-text"></div>
+        <div class="playbook-modal-actions" style="display: flex; gap: 10px;">
+          <button class="action-btn" id="playbook-modal-copy" onclick="copyPlaybookModalText()" style="flex: 1; margin-top: 0;">Copy Content</button>
+          <button class="action-btn" onclick="closePlaybookModal()" style="flex: 1; margin-top: 0; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #fff; box-shadow: none;">Close</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    let currentLang = 'es';
+    let currentLang = 'en';
     let currentTab = 'planner';
 
     const translations = {
+      pt: {
+        plannerTab: "Estúdio de Planejamento",
+        chatTab: "Assistente Chat",
+        playbookTab: "Meu Playbook",
+        lblCategory: "Categoria do Time",
+        lblLevel: "Nível de Jogo",
+        lblDuration: "Duração do Treino",
+        lblFocus: "Foco Técnico do Dia",
+        btnGenerate: "Gerar Treino com IA",
+        lblResultTitle: "Treino Sugerido",
+        btnCopy: "Copiar Plano",
+        btnSave: "💾 Salvar",
+        lblSaved: "Salvo! ✓",
+        lblNoSaved: "Nenhum plano ou resposta tática salva ainda. Comece a planejar e salve suas rotinas!",
+        chatPlaceholder: "Digite sua pergunta tática aqui...",
+        chatWelcome: "Olá! Sou seu assistente de treino. Em qual tática ou exercício gostaria de trabalhar hoje?",
+        splashTitle: "CoachBrain AI",
+        splashSubtitle: "Seu Assistente de Treino de Basquete 24/7",
+        btnStart: "INICIAR TREINO <span>➔</span>",
+        categories: [
+          { val: "U10", text: "Sub-10 / Minibasket" },
+          { val: "U14", text: "Sub-14 / Desenvolvimento" },
+          { val: "U18", text: "Sub-18 / Juvenil" },
+          { val: "Adults", text: "Adultos / Profissional" }
+        ],
+        levels: [
+          { val: "Principiante", text: "Iniciante / Básico" },
+          { val: "Intermedio", text: "Intermediário / Desenvolvimento" },
+          { val: "Avanzado", text: "Avançado / Competitivo" }
+        ],
+        focuses: [
+          { val: "Tiro y Mecánica", text: "Arremesso & Mecânica de Chute" },
+          { val: "Manejo de Balón y Drible", text: "Drible & Controle de Bola" },
+          { val: "Pases y Transiciones", text: "Passe & Contra-ataque" },
+          { val: "Defensa Individual", text: "Defesa Individual & Posicionamento" },
+          { val: "Físico y Agilidad", text: "Físico, Impulsão & Agilidade" }
+        ],
+        pills: [
+          { text: "🏀 Aquecimento Sub-12", prompt: "Gere um aquecimento de treino criativo e dinâmico de basquete focado em drible para a categoria Sub-12." },
+          { text: "🏃 Treino com 6 jogadores", prompt: "Sugira um exercício dinâmico de meia quadra para apenas 6 jogadores com foco em tomada de decisão." },
+          { text: "🛡️ Quebrar zona 2-3", prompt: "Quais as melhores estratégias e movimentações táticas para quebrar uma defesa por zona 2-3?" },
+          { text: "⚡ Passe em transição 3x3", prompt: "Gere um exercício de passe em transição contínua 3 contra 3 com finalização rápida." }
+        ]
+      },
       es: {
         plannerTab: "Planificador",
         chatTab: "Playbook AI Chat",
+        playbookTab: "Mi Playbook",
         lblCategory: "Categoría del Equipo",
         lblLevel: "Nivel de Juego",
         lblDuration: "Duración del Entrenamiento",
@@ -488,8 +959,14 @@
         btnGenerate: "Generar Entrenamiento con IA",
         lblResultTitle: "Entrenamiento Sugerido",
         btnCopy: "Copiar Plan",
+        btnSave: "💾 Guardar",
+        lblSaved: "¡Guardado! ✓",
+        lblNoSaved: "Ninguen plan o respuesta táctica guardada aún. ¡Genera un plan para guardarlo aquí!",
         chatPlaceholder: "Escribe tu pregunta táctica aquí...",
         chatWelcome: "¡Hola! Soy tu asistente de Playbook. ¿En qué táctica o ejercicio te gustaría trabajar hoy?",
+        splashTitle: "CoachBrain AI",
+        splashSubtitle: "Tu Asistente de Entrenamiento de Baloncesto 24/7",
+        btnStart: "INICIAR ENTRENAMIENTO <span>➔</span>",
         categories: [
           { val: "U10", text: "Sub-10 / Minibasket" },
           { val: "U14", text: "Sub-14 / Infantil" },
@@ -507,11 +984,18 @@
           { val: "Pases y Transiciones", text: "Pases y Contraataque" },
           { val: "Defensa Individual", text: "Defensa Individual y Posicionamiento" },
           { val: "Físico y Agilidad", text: "Impulsión, Velocidad y Agilidad" }
+        ],
+        pills: [
+          { text: "🏀 Calentamiento Sub-12", prompt: "Genera un calentamiento de tiro creativo y dinámico para la categoría Sub-12." },
+          { text: "🏃 Entreno 6 jugadores", prompt: "Sugiere un ejercicio dinámico de media cancha para exactamente 6 jugadores con foco en toma de decisiones." },
+          { text: "🛡️ Romper zona 2-3", prompt: "¿Cuáles son las mejores jugadas tácticas para romper una defensa en zona 2-3?" },
+          { text: "⚡ Pase transición 3x3", prompt: "Ejercicios de pase en transición continua 3 contra 3 con finalización." }
         ]
       },
       en: {
         plannerTab: "Planner",
         chatTab: "Playbook AI Chat",
+        playbookTab: "My Playbook",
         lblCategory: "Team Category",
         lblLevel: "Game Level",
         lblDuration: "Practice Duration",
@@ -519,8 +1003,14 @@
         btnGenerate: "Generate Practice with AI",
         lblResultTitle: "Suggested Plan",
         btnCopy: "Copy Plan",
+        btnSave: "💾 Save",
+        lblSaved: "Saved! ✓",
+        lblNoSaved: "No saved plans yet. Generate a practice plan or chat answer to store them here.",
         chatPlaceholder: "Ask your tactical question here...",
         chatWelcome: "Hello! I am your Playbook assistant. What tactics or drills would you like to work on today?",
+        splashTitle: "CoachBrain AI",
+        splashSubtitle: "Your 24/7 Personal Basketball Coaching Assistant",
+        btnStart: "START PRACTICE <span>➔</span>",
         categories: [
           { val: "U10", text: "Under-10 / Minibasket" },
           { val: "U14", text: "Under-14 / Development" },
@@ -538,11 +1028,18 @@
           { val: "Pases y Transiciones", text: "Passing & Fast Break" },
           { val: "Defensa Individual", text: "Man-to-Man Defense & Stance" },
           { val: "Físico y Agilidad", text: "Conditioning, Jump & Agility" }
+        ],
+        pills: [
+          { text: "🏀 U12 Shooting Warmup", prompt: "Generate a creative shooting warmup drill for Under-12 players." },
+          { text: "🏃 6 Players half-court", prompt: "Suggest a dynamic half-court basketball drill for exactly 6 players." },
+          { text: "🛡️ Beat 2-3 Zone", prompt: "What are the best tactical set plays to beat a man-to-man or 2-3 zone defense?" },
+          { text: "⚡ 3x3 Transition passes", prompt: "Explain a continuous 3-on-3 transition passing drill with layup finishes." }
         ]
       },
       fr: {
         plannerTab: "Planificateur",
         chatTab: "Playbook AI Chat",
+        playbookTab: "Mon Playbook",
         lblCategory: "Catégorie d'Équipe",
         lblLevel: "Niveau de Jeu",
         lblDuration: "Durée de l'Entraînement",
@@ -550,8 +1047,14 @@
         btnGenerate: "Générer l'Entraînement avec l'IA",
         lblResultTitle: "Entraînement Suggéré",
         btnCopy: "Copier le Plan",
+        btnSave: "💾 Enregistrer",
+        lblSaved: "Sauvegardé ! ✓",
+        lblNoSaved: "Aucun plan enregistré. Générez un entraînement pour le sauvegarder ici.",
         chatPlaceholder: "Écrivez votre question tactique ici...",
         chatWelcome: "Bonjour ! Je suis votre assistant de Playbook. Sur quelle tactique ou quel exercice aimeriez-vous travailler aujourd'hui ?",
+        splashTitle: "CoachBrain AI",
+        splashSubtitle: "Votre Assistant d'Entraînement de Basket 24/7",
+        btnStart: "COMMENCER L'ENTRAÎNEMENT <span>➔</span>",
         categories: [
           { val: "U10", text: "Sub-10 / Minibasket" },
           { val: "U14", text: "Sub-14 / Développement" },
@@ -569,18 +1072,56 @@
           { val: "Pases y Transiciones", text: "Passes & Contre-attaque" },
           { val: "Defensa Individual", text: "Défense Individuelle & Posture" },
           { val: "Físico y Agilidad", text: "Conditionnement, Détente & Agilité" }
+        ],
+        pills: [
+          { text: "🏀 Échauffement U12", prompt: "Générer un échauffement de tir créatif pour la catégorie U12." },
+          { text: "🏃 6 joueurs demi-terrain", prompt: "Suggérer un exercice dynamique à demi-terrain pour exactement 6 joueurs." },
+          { text: "🛡️ Attaquer zone 2-3", prompt: "Quelles sont les meilleures tactiques pour attaquer une défense de zone 2-3 ?" },
+          { text: "⚡ Passe transition 3x3", prompt: "Exercices de passe en transition continue 3 contre 3 avec panier." }
         ]
       }
     };
 
+    function startApp() {
+      const splash = document.getElementById('splash-screen');
+      const app = document.getElementById('app-container');
+      
+      splash.classList.add('fade-out');
+      app.style.display = 'flex';
+      app.style.opacity = '0';
+      setTimeout(() => {
+        app.style.transition = 'opacity 0.5s ease';
+        app.style.opacity = '1';
+      }, 50);
+      
+      setTimeout(() => {
+        splash.style.display = 'none';
+      }, 500);
+      
+      renderPlaybook();
+    }
+
     function setLanguage(lang) {
       currentLang = lang;
-      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      
+      // Update toggle buttons active state
+      document.querySelectorAll('.lang-toggle .lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if(btn.textContent.toUpperCase() === lang.toUpperCase()) {
+          btn.classList.add('active');
+        }
+      });
 
       const trans = translations[lang];
-      document.querySelectorAll('.tab-btn')[0].textContent = trans.plannerTab;
-      document.querySelectorAll('.tab-btn')[1].textContent = trans.chatTab;
+      if (!trans) return;
+
+      const tabPlanner = document.getElementById('tab-planner-btn');
+      const tabChat = document.getElementById('tab-chat-btn');
+      const tabPlaybook = document.getElementById('tab-playbook-btn');
+      if (tabPlanner) tabPlanner.textContent = trans.plannerTab;
+      if (tabChat) tabChat.textContent = trans.chatTab;
+      if (tabPlaybook) tabPlaybook.textContent = trans.playbookTab;
+      
       document.getElementById('lbl-category').textContent = trans.lblCategory;
       document.getElementById('lbl-level').textContent = trans.lblLevel;
       document.getElementById('lbl-duration').textContent = trans.lblDuration;
@@ -590,15 +1131,44 @@
       document.getElementById('btn-copy').textContent = trans.btnCopy;
       document.getElementById('chat-input-field').placeholder = trans.chatPlaceholder;
 
-      // Welcome message if chat empty
-      if(document.getElementById('chat-box').children.length === 1) {
-        document.getElementById('chat-welcome').textContent = trans.chatWelcome;
+      const splashSub = document.getElementById('splash-sub-text');
+      const splashBtn = document.getElementById('splash-start-btn');
+      if (splashSub) splashSub.textContent = trans.splashSubtitle;
+      if (splashBtn) splashBtn.innerHTML = trans.btnStart;
+
+      const lblPbTitle = document.getElementById('lbl-playbook-title');
+      const lblPbSubtitle = document.getElementById('lbl-playbook-subtitle');
+      if (lblPbTitle) lblPbTitle.textContent = trans.playbookTab;
+      if (lblPbSubtitle) lblPbSubtitle.textContent = trans.lblNoSaved || '';
+
+      // Welcome message in chat if empty
+      const chatBox = document.getElementById('chat-box');
+      if(chatBox && chatBox.children.length <= 1) {
+        chatBox.innerHTML = `<div class="message ai" id="chat-welcome">${trans.chatWelcome}</div>`;
       }
 
       // Rebuild selectors options
       rebuildSelector('param-category', trans.categories);
       rebuildSelector('param-level', trans.levels);
       rebuildSelector('param-focus', trans.focuses);
+
+      // Rebuild prompt pills
+      const pillsContainer = document.getElementById('prompt-pills');
+      if (pillsContainer && trans.pills) {
+        pillsContainer.innerHTML = '';
+        trans.pills.forEach(pill => {
+          const btn = document.createElement('button');
+          btn.className = 'prompt-pill';
+          btn.textContent = pill.text;
+          btn.onclick = () => {
+            document.getElementById('chat-input-field').value = pill.prompt;
+            sendChatMessage();
+          };
+          pillsContainer.appendChild(btn);
+        });
+      }
+      
+      renderPlaybook();
     }
 
     function rebuildSelector(id, options) {
@@ -617,10 +1187,17 @@
     function switchTab(tab) {
       currentTab = tab;
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      
+      // Determine index based on tab name
+      const tabIndices = { 'planner': 0, 'chat': 1, 'playbook': 2 };
+      document.querySelectorAll('.tab-btn')[tabIndices[tab]].classList.add('active');
 
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       document.getElementById(tab + '-tab').classList.add('active');
+
+      if(tab === 'playbook') {
+        renderPlaybook();
+      }
     }
 
     async function generatePracticePlan() {
@@ -632,9 +1209,11 @@
       const loader = document.getElementById('planner-loader');
       const resultBox = document.getElementById('result-box');
       const resultText = document.getElementById('result-text');
+      const saveBtn = document.getElementById('btn-save-planner');
 
       loader.style.display = 'flex';
       resultBox.style.display = 'none';
+      saveBtn.style.display = 'none';
 
       try {
         const response = await fetch('/api/generate', {
@@ -655,10 +1234,11 @@
           resultText.textContent = "Error: " + resData.error;
         } else {
           resultText.textContent = resData.result;
+          saveBtn.style.display = 'inline-block';
         }
         resultBox.style.display = 'block';
       } catch(e) {
-        resultText.textContent = currentLang === 'es' ? "Error al conectar con la IA." : (currentLang === 'fr' ? "Erreur de connexion avec l'IA." : "Failed to connect to the AI.");
+        resultText.textContent = currentLang === 'es' ? "Error al conectar con la IA." : (currentLang === 'fr' ? "Erreur de connexion avec l'IA." : (currentLang === 'pt' ? "Falha ao conectar com a IA." : "Failed to connect to the AI."));
         resultBox.style.display = 'block';
       } finally {
         loader.style.display = 'none';
@@ -670,8 +1250,31 @@
       navigator.clipboard.writeText(text);
       const copyBtn = document.getElementById('btn-copy');
       const originalText = copyBtn.textContent;
-      copyBtn.textContent = currentLang === 'es' ? '¡Copiado!' : (currentLang === 'fr' ? 'Copié !' : 'Copied!');
+      copyBtn.textContent = currentLang === 'pt' ? 'Copiado!' : (currentLang === 'es' ? '¡Copiado!' : (currentLang === 'fr' ? 'Copié !' : 'Copied!'));
       setTimeout(() => { copyBtn.textContent = originalText; }, 1800);
+    }
+
+    function savePlannerResult() {
+      const text = document.getElementById('result-text').textContent;
+      if (!text) return;
+      
+      const catText = document.getElementById('param-category').options[document.getElementById('param-category').selectedIndex].text;
+      const focusText = document.getElementById('param-focus').options[document.getElementById('param-focus').selectedIndex].text;
+      const title = `${catText} - ${focusText}`;
+      
+      saveToPlaybook(title, text, 'planner');
+      
+      const saveBtn = document.getElementById('btn-save-planner');
+      const originalText = saveBtn.textContent;
+      saveBtn.textContent = translations[currentLang].lblSaved;
+      saveBtn.style.borderColor = '#15803d';
+      saveBtn.style.color = '#15803d';
+      
+      setTimeout(() => {
+        saveBtn.textContent = originalText;
+        saveBtn.style.borderColor = '';
+        saveBtn.style.color = '';
+      }, 2000);
     }
 
     function handleChatKey(event) {
@@ -721,7 +1324,10 @@
         if (resData.error) {
           aiBubble.textContent = "Error: " + resData.error;
         } else {
-          aiBubble.textContent = resData.result;
+          aiBubble.innerHTML = `
+            <div class="msg-text" style="white-space: pre-wrap; line-height: 1.5;">${resData.result}</div>
+            <button class="msg-save-btn" onclick="saveChatBubble(this)">💾 ${translations[currentLang].btnSave || 'Save'}</button>
+          `;
         }
         chatBox.appendChild(aiBubble);
         chatBox.scrollTop = chatBox.scrollHeight;
@@ -730,11 +1336,148 @@
         chatBox.removeChild(loadingBubble);
         const aiBubble = document.createElement('div');
         aiBubble.className = 'message ai';
-        aiBubble.textContent = currentLang === 'es' ? "Error al conectar." : (currentLang === 'fr' ? "Erreur de connexion." : "Connection failed.");
+        aiBubble.textContent = currentLang === 'es' ? "Error al conectar." : (currentLang === 'fr' ? "Erreur de connexion." : (currentLang === 'pt' ? "Falha na conexão." : "Connection failed."));
         chatBox.appendChild(aiBubble);
         chatBox.scrollTop = chatBox.scrollHeight;
       }
     }
+
+    function saveChatBubble(btn) {
+      const text = btn.previousElementSibling.textContent;
+      const bubble = btn.parentElement;
+      const prevBubble = bubble.previousElementSibling;
+      let title = "Saved Chat Answer";
+      if (prevBubble && prevBubble.classList.contains('user')) {
+        title = prevBubble.textContent;
+        if (title.length > 30) title = title.substring(0, 30) + "...";
+      }
+      
+      saveToPlaybook(title, text, 'chat');
+      
+      const originalText = btn.innerHTML;
+      btn.textContent = translations[currentLang].lblSaved;
+      btn.style.borderColor = '#15803d';
+      btn.style.color = '#15803d';
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.borderColor = '';
+        btn.style.color = '';
+      }, 2000);
+    }
+
+    // Playbook Storage Operations
+    function getPlaybook() {
+      return JSON.parse(localStorage.getItem('coachbrain_playbook') || '[]');
+    }
+
+    function saveToPlaybook(title, content, type) {
+      const playbook = getPlaybook();
+      const newItem = {
+        id: 'pb_' + Date.now(),
+        title: title || (type === 'planner' ? 'Practice Plan' : 'Tactical Answer'),
+        content: content,
+        type: type,
+        date: new Date().toLocaleDateString(currentLang === 'pt' ? 'pt-BR' : (currentLang === 'es' ? 'es-ES' : 'en-US'), {
+          day: 'numeric',
+          month: 'short',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      };
+      playbook.unshift(newItem);
+      localStorage.setItem('coachbrain_playbook', JSON.stringify(playbook));
+      renderPlaybook();
+    }
+
+    function deletePlaybookItem(id, event) {
+      if(event) event.stopPropagation();
+      let playbook = getPlaybook();
+      playbook = playbook.filter(item => item.id !== id);
+      localStorage.setItem('coachbrain_playbook', JSON.stringify(playbook));
+      renderPlaybook();
+    }
+
+    function renderPlaybook() {
+      const list = document.getElementById('playbook-list');
+      const playbook = getPlaybook();
+      
+      if(playbook.length === 0) {
+        list.innerHTML = `
+          <div class="playbook-empty-state">
+            <div class="empty-icon">🗂️</div>
+            <p>${translations[currentLang].lblNoSaved}</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = '';
+      playbook.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'playbook-card';
+        card.onclick = () => viewPlaybookItem(item.id);
+        
+        const typeLabel = item.type === 'planner' 
+          ? (currentLang === 'pt' ? 'Plano de Treino' : (currentLang === 'es' ? 'Plan de Entreno' : 'Practice Plan'))
+          : (currentLang === 'pt' ? 'Resposta Tática' : (currentLang === 'es' ? 'Respuesta Táctica' : 'Tactical Answer'));
+          
+        card.innerHTML = `
+          <div class="playbook-card-header">
+            <span class="playbook-tag ${item.type}">${typeLabel}</span>
+            <button class="playbook-delete-btn" onclick="deletePlaybookItem('${item.id}', event)">✕</button>
+          </div>
+          <h3 class="playbook-card-title">${item.title}</h3>
+          <p class="playbook-card-preview">${item.content.substring(0, 120)}...</p>
+          <div class="playbook-card-footer">
+            <span class="playbook-card-date">${item.date}</span>
+            <span class="playbook-card-action">View ➔</span>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function viewPlaybookItem(id) {
+      const playbook = getPlaybook();
+      const item = playbook.find(i => i.id === id);
+      if(!item) return;
+
+      document.getElementById('playbook-modal-title').textContent = item.title;
+      const badge = document.getElementById('playbook-modal-badge');
+      badge.textContent = item.type === 'planner' 
+        ? (currentLang === 'pt' ? 'Plano' : (currentLang === 'es' ? 'Plan' : 'Plan'))
+        : (currentLang === 'pt' ? 'Chat' : (currentLang === 'es' ? 'Chat' : 'Chat'));
+      badge.className = 'playbook-modal-badge ' + item.type;
+      
+      document.getElementById('playbook-modal-text').textContent = item.content;
+      
+      const modal = document.getElementById('playbookModal');
+      modal.style.display = 'flex';
+      setTimeout(() => {
+        modal.classList.add('active');
+      }, 10);
+    }
+
+    function closePlaybookModal() {
+      const modal = document.getElementById('playbookModal');
+      modal.classList.remove('active');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 300);
+    }
+
+    function copyPlaybookModalText() {
+      const text = document.getElementById('playbook-modal-text').textContent;
+      navigator.clipboard.writeText(text);
+      const copyBtn = document.getElementById('playbook-modal-copy');
+      const originalText = copyBtn.textContent;
+      copyBtn.textContent = currentLang === 'pt' ? 'Copiado!' : (currentLang === 'es' ? '¡Copiado!' : 'Copied!');
+      setTimeout(() => { copyBtn.textContent = originalText; }, 1800);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setLanguage('en'); // Default language set to English
+    });
   </script>
 </body>
 </html>
