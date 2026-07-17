@@ -379,7 +379,101 @@
       font-size: 13.5px;
       color: #e2e8f0;
       line-height: 1.6;
-      white-space: pre-wrap;
+    }
+
+    /* Markdown rendering styles */
+    .result-body h1 {
+      font-size: 16px;
+      font-weight: 900;
+      color: #fff;
+      margin: 0 0 16px 0;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--orange);
+      letter-spacing: -0.3px;
+    }
+    .result-body h2, .result-body h3 {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin: 18px 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .result-body h2::before, .result-body h3::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background: var(--orange);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .result-body p {
+      margin: 6px 0;
+      line-height: 1.65;
+      color: #d1d9e6;
+    }
+    .result-body strong {
+      color: #fff;
+      font-weight: 700;
+    }
+    .result-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 16px 0;
+    }
+    .result-body .section-block {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 10px 0 16px 0;
+    }
+    .result-body .section-block p {
+      margin: 4px 0;
+    }
+    .result-body ul, .result-body ol {
+      padding-left: 18px;
+      margin: 6px 0;
+    }
+    .result-body li {
+      margin: 4px 0;
+      color: #d1d9e6;
+      line-height: 1.55;
+    }
+    .message.ai .msg-text h3 {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin: 12px 0 6px 0;
+    }
+    .message.ai .msg-text strong {
+      color: #fff;
+      font-weight: 700;
+    }
+    .message.ai .msg-text p {
+      margin: 5px 0;
+      color: #d1d9e6;
+      line-height: 1.6;
+    }
+    .message.ai .msg-text hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 10px 0;
+    }
+    .message.ai .msg-text ul, .message.ai .msg-text ol {
+      padding-left: 16px;
+      margin: 5px 0;
+    }
+    .message.ai .msg-text li {
+      color: #d1d9e6;
+      margin: 3px 0;
     }
 
     /* Chat Tab Layout */
@@ -1171,6 +1265,95 @@
       renderPlaybook();
     }
 
+    function parseMarkdown(text) {
+      if (!text) return '';
+      // Escape HTML first
+      let html = text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      const lines = html.split('\n');
+      const result = [];
+      let inBlock = false;
+      let blockLines = [];
+
+      const flushBlock = () => {
+        if (blockLines.length > 0) {
+          result.push('<div class="section-block">' + blockLines.join('\n') + '</div>');
+          blockLines = [];
+          inBlock = false;
+        }
+      };
+
+      lines.forEach(line => {
+        // H1: lines starting with # only
+        if (/^# /.test(line)) {
+          flushBlock();
+          result.push('<h1>' + line.replace(/^# /, '') + '</h1>');
+        }
+        // H2/H3: section headers (## or ###)
+        else if (/^#{2,3} /.test(line)) {
+          flushBlock();
+          const heading = line.replace(/^#{2,3} /, '');
+          result.push('<h3>' + heading + '</h3>');
+          inBlock = true;
+        }
+        // Bold standalone lines (e.g. **Title:**)
+        else if (/^\*\*[^*]+\*\*\s*$/.test(line.trim())) {
+          const content = line.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+          if (inBlock) {
+            blockLines.push('<p>' + content + '</p>');
+          } else {
+            result.push('<h1>' + line.replace(/\*\*/g, '') + '</h1>');
+          }
+        }
+        // Horizontal rule
+        else if (/^---+$/.test(line.trim())) {
+          flushBlock();
+          result.push('<hr>');
+        }
+        // List items
+        else if (/^[-*] /.test(line)) {
+          const item = line.replace(/^[-*] /, '').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+          if (inBlock) {
+            blockLines.push('<p>• ' + item + '</p>');
+          } else {
+            result.push('<p>• ' + item + '</p>');
+          }
+        }
+        // Numbered list items
+        else if (/^\d+\. /.test(line)) {
+          const item = line.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+          if (inBlock) {
+            blockLines.push('<p>' + item + '</p>');
+          } else {
+            result.push('<p>' + item + '</p>');
+          }
+        }
+        // Empty line
+        else if (line.trim() === '') {
+          if (inBlock && blockLines.length > 0) {
+            // keep going
+          } else {
+            flushBlock();
+          }
+        }
+        // Normal paragraph
+        else {
+          const formatted = line.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+          if (inBlock) {
+            blockLines.push('<p>' + formatted + '</p>');
+          } else {
+            result.push('<p>' + formatted + '</p>');
+          }
+        }
+      });
+
+      flushBlock();
+      return result.join('\n');
+    }
+
     function rebuildSelector(id, options) {
       const select = document.getElementById(id);
       const activeVal = select.value;
@@ -1231,9 +1414,10 @@
 
         const resData = await response.json();
         if (resData.error) {
-          resultText.textContent = "Error: " + resData.error;
+          resultText.innerHTML = '<p style="color:#ef4444;">Error: ' + resData.error + '</p>';
         } else {
-          resultText.textContent = resData.result;
+          resultText._rawText = resData.result;
+          resultText.innerHTML = parseMarkdown(resData.result);
           saveBtn.style.display = 'inline-block';
         }
         resultBox.style.display = 'block';
@@ -1246,7 +1430,8 @@
     }
 
     function copyResult() {
-      const text = document.getElementById('result-text').textContent;
+      const resultText = document.getElementById('result-text');
+      const text = resultText._rawText || resultText.innerText;
       navigator.clipboard.writeText(text);
       const copyBtn = document.getElementById('btn-copy');
       const originalText = copyBtn.textContent;
@@ -1324,8 +1509,9 @@
         if (resData.error) {
           aiBubble.textContent = "Error: " + resData.error;
         } else {
+          aiBubble._rawText = resData.result;
           aiBubble.innerHTML = `
-            <div class="msg-text" style="white-space: pre-wrap; line-height: 1.5;">${resData.result}</div>
+            <div class="msg-text">${parseMarkdown(resData.result)}</div>
             <button class="msg-save-btn" onclick="saveChatBubble(this)">💾 ${translations[currentLang].btnSave || 'Save'}</button>
           `;
         }
