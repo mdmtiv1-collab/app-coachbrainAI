@@ -41,6 +41,8 @@
       height: 100%;
       height: -webkit-fill-available;
       overflow: hidden;
+      position: fixed;
+      width: 100%;
     }
 
     /* Onboarding Splash Screen */
@@ -234,10 +236,19 @@
     }
 
     /* Main Content Area */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
     .content-area {
       flex: 1;
+      min-height: 0;          /* CRITICAL: allows overflow-y to work inside flex */
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
       padding: 20px;
       padding-bottom: calc(20px + env(safe-area-inset-bottom));
     }
