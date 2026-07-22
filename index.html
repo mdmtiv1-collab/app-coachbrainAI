@@ -1196,21 +1196,23 @@
       const splash = document.getElementById('splash-screen');
       const app = document.getElementById('app-container');
       
-      splash.classList.add('fade-out');
-      app.style.display = 'flex';
-      app.style.opacity = '0';
+      if (splash) splash.classList.add('fade-out');
+      if (app) {
+        app.style.display = 'flex';
+        app.style.opacity = '0';
+        setTimeout(() => {
+          app.style.transition = 'opacity 0.5s ease';
+          app.style.opacity = '1';
+        }, 50);
+      }
       document.body.style.overflow = 'auto';
       document.documentElement.style.overflow = 'auto';
-      setTimeout(() => {
-        app.style.transition = 'opacity 0.5s ease';
-        app.style.opacity = '1';
-      }, 50);
       
       setTimeout(() => {
-        splash.style.display = 'none';
+        if (splash) splash.style.display = 'none';
       }, 500);
       
-      renderPlaybook();
+      if (typeof renderPlaybook === 'function') renderPlaybook();
     }
 
     function setLanguage(lang) {
@@ -1227,31 +1229,28 @@
       const trans = translations[lang];
       if (!trans) return;
 
-      const tabPlanner = document.getElementById('tab-planner-btn');
-      const tabChat = document.getElementById('tab-chat-btn');
-      const tabPlaybook = document.getElementById('tab-playbook-btn');
-      if (tabPlanner) tabPlanner.textContent = trans.plannerTab;
-      if (tabChat) tabChat.textContent = trans.chatTab;
-      if (tabPlaybook) tabPlaybook.textContent = trans.playbookTab;
+      const setElText = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.textContent = val; };
+      const setElHtml = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.innerHTML = val; };
+      const setElPlaceholder = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.placeholder = val; };
+
+      setElText('tab-planner-btn', trans.plannerTab);
+      setElText('tab-chat-btn', trans.chatTab);
+      setElText('tab-playbook-btn', trans.playbookTab);
       
-      document.getElementById('lbl-category').textContent = trans.lblCategory;
-      document.getElementById('lbl-level').textContent = trans.lblLevel;
-      document.getElementById('lbl-duration').textContent = trans.lblDuration;
-      document.getElementById('lbl-focus').textContent = trans.lblFocus;
-      document.getElementById('btn-generate').textContent = trans.btnGenerate;
-      document.getElementById('lbl-result-title').textContent = trans.lblResultTitle;
-      document.getElementById('btn-copy').textContent = trans.btnCopy;
-      document.getElementById('chat-input-field').placeholder = trans.chatPlaceholder;
+      setElText('lbl-category', trans.lblCategory);
+      setElText('lbl-level', trans.lblLevel);
+      setElText('lbl-duration', trans.lblDuration);
+      setElText('lbl-focus', trans.lblFocus);
+      setElText('btn-generate', trans.btnGenerate);
+      setElText('lbl-result-title', trans.lblResultTitle);
+      setElText('btn-copy', trans.btnCopy);
+      setElPlaceholder('chat-input-field', trans.chatPlaceholder);
 
-      const splashSub = document.getElementById('splash-sub-text');
-      const splashBtn = document.getElementById('splash-start-btn');
-      if (splashSub) splashSub.textContent = trans.splashSubtitle;
-      if (splashBtn) splashBtn.innerHTML = trans.btnStart;
+      setElText('splash-sub-text', trans.splashSubtitle);
+      setElHtml('splash-start-btn', trans.btnStart);
 
-      const lblPbTitle = document.getElementById('lbl-playbook-title');
-      const lblPbSubtitle = document.getElementById('lbl-playbook-subtitle');
-      if (lblPbTitle) lblPbTitle.textContent = trans.playbookTab;
-      if (lblPbSubtitle) lblPbSubtitle.textContent = trans.lblNoSaved || '';
+      setElText('lbl-playbook-title', trans.playbookTab);
+      setElText('lbl-playbook-subtitle', trans.lblNoSaved || '');
 
       // Welcome message in chat if empty
       const chatBox = document.getElementById('chat-box');
