@@ -1460,8 +1460,7 @@
 
     function saveChatBubble(btn) {
       const bubble = btn.parentElement;
-      const text = bubble._rawText || btn.previousElementSibling.textContent;
-      const bubble = btn.parentElement;
+      const text = bubble._rawText || (btn.previousElementSibling ? btn.previousElementSibling.textContent : '');
       const prevBubble = bubble.previousElementSibling;
       let title = "Saved Chat Answer";
       if (prevBubble && prevBubble.classList.contains('user')) {
