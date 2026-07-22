@@ -1196,21 +1196,16 @@
       const splash = document.getElementById('splash-screen');
       const app = document.getElementById('app-container');
       
-      if (splash) splash.classList.add('fade-out');
+      if (splash) {
+        splash.style.display = 'none';
+        splash.style.pointerEvents = 'none';
+      }
       if (app) {
         app.style.display = 'flex';
-        app.style.opacity = '0';
-        setTimeout(() => {
-          app.style.transition = 'opacity 0.5s ease';
-          app.style.opacity = '1';
-        }, 50);
+        app.style.opacity = '1';
       }
       document.body.style.overflow = 'auto';
       document.documentElement.style.overflow = 'auto';
-      
-      setTimeout(() => {
-        if (splash) splash.style.display = 'none';
-      }, 500);
       
       if (typeof renderPlaybook === 'function') renderPlaybook();
     }
@@ -1599,6 +1594,10 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       setLanguage('en'); // Default language set to English
+      const splashBtn = document.getElementById('splash-start-btn');
+      if (splashBtn) {
+        splashBtn.addEventListener('click', startApp);
+      }
     });
   </script>
 </body>
