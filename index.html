@@ -845,6 +845,7 @@
       <button id="tab-planner-btn" class="tab-btn active" onclick="switchTab('planner')">Practice Planner</button>
       <button id="tab-chat-btn" class="tab-btn" onclick="switchTab('chat')">Playbook AI Chat</button>
       <button id="tab-playbook-btn" class="tab-btn" onclick="switchTab('playbook')">My Playbook</button>
+      <button id="tab-drills-btn" class="tab-btn" onclick="switchTab('drills')">+150 Drills</button>
     </div>
 
     <div class="content-area">
@@ -922,14 +923,33 @@
         </div>
       </div>
 
-      <!-- Playbook Tab -->
+      <!-- My Playbook Tab -->
       <div id="playbook-tab" class="tab-content">
         <div class="playbook-header">
-          <h2 id="lbl-playbook-title">Saved Playbook</h2>
-          <p id="lbl-playbook-subtitle">Access your stored practice plans and tactical answers here.</p>
+          <h2 id="lbl-playbook-title">My Playbook</h2>
+          <p id="lbl-playbook-subtitle">Saved practice plans and tactical answers.</p>
         </div>
         <div id="playbook-list" class="playbook-grid">
-          <!-- Rendered dynamically by JS -->
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- +150 Drills Tab -->
+      <div id="drills-tab" class="tab-content">
+        <div style="text-align: center; max-width: 500px; margin: 20px auto; padding: 25px 20px; background: var(--surface-card); border: 1px solid var(--border); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+          <div style="font-size: 40px; margin-bottom: 12px;">🏀</div>
+          <h2 style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px;">+150 Drills Library / Biblioteca +150 Ejercicios</h2>
+          <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">
+            Access the complete members area with +150 HD video drills. Select your language below to enter:
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 14px; width: 100%;">
+            <a href="https://members-150basketball.vercel.app/" target="_blank" rel="noopener noreferrer" class="action-btn" style="display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;">
+              🇺🇸 English Version / Versión en Inglés
+            </a>
+            <a href="https://entrenamientosdebaloncesto.vercel.app/" target="_blank" rel="noopener noreferrer" class="action-btn" style="display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; background: linear-gradient(90deg, #3b82f6, #60a5fa); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
+              🇪🇸 Versión en Español / Spanish Version
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -964,6 +984,7 @@
         plannerTab: "Estúdio de Planejamento",
         chatTab: "Assistente Chat",
         playbookTab: "Meu Playbook",
+        drillsTab: "+150 Treinos",
         lblCategory: "Categoria do Time",
         lblLevel: "Nível de Jogo",
         lblDuration: "Duração do Treino",
@@ -1008,6 +1029,7 @@
         plannerTab: "Planificador",
         chatTab: "Playbook AI Chat",
         playbookTab: "Mi Playbook",
+        drillsTab: "+150 Ejercicios",
         lblCategory: "Categoría del Equipo",
         lblLevel: "Nivel de Juego",
         lblDuration: "Duración del Entrenamiento",
@@ -1052,6 +1074,7 @@
         plannerTab: "Planner",
         chatTab: "Playbook AI Chat",
         playbookTab: "My Playbook",
+        drillsTab: "+150 Drills",
         lblCategory: "Team Category",
         lblLevel: "Game Level",
         lblDuration: "Practice Duration",
@@ -1096,6 +1119,7 @@
         plannerTab: "Planificateur",
         chatTab: "Playbook AI Chat",
         playbookTab: "Mon Playbook",
+        drillsTab: "+150 Exercices",
         lblCategory: "Catégorie d'Équipe",
         lblLevel: "Niveau de Jeu",
         lblDuration: "Durée de l'Entraînement",
@@ -1231,6 +1255,7 @@
       setElText('tab-planner-btn', trans.plannerTab);
       setElText('tab-chat-btn', trans.chatTab);
       setElText('tab-playbook-btn', trans.playbookTab);
+      setElText('tab-drills-btn', trans.drillsTab);
       
       setElText('lbl-category', trans.lblCategory);
       setElText('lbl-level', trans.lblLevel);
@@ -1295,7 +1320,7 @@
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       
       // Determine index based on tab name
-      const tabIndices = { 'planner': 0, 'chat': 1, 'playbook': 2 };
+      const tabIndices = { 'planner': 0, 'chat': 1, 'playbook': 2, 'drills': 3 };
       document.querySelectorAll('.tab-btn')[tabIndices[tab]].classList.add('active');
 
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
