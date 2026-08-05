@@ -852,45 +852,91 @@
     <div class="content-area">
       <!-- Planner Tab -->
       <div id="planner-tab" class="tab-content active">
-        <div class="form-group">
-          <label id="lbl-category">Team Category</label>
-          <div class="select-wrapper">
-            <select id="param-category">
-              <!-- Rebuilt dynamically -->
-            </select>
+        <div style="max-width: 720px; margin: 0 auto; background: var(--surface-card); border: 1px solid rgba(232, 78, 27, 0.25); border-radius: 20px; padding: 24px; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+          
+          <!-- Header Badge -->
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 22px;">📋</span>
+              <div style="text-align: left;">
+                <h3 style="font-size: 16px; font-weight: 800; color: #fff; margin: 0;">Generador de Práctica AI</h3>
+                <span style="font-size: 12px; color: var(--text-muted);">Configura tu sesión completa en segundos</span>
+              </div>
+            </div>
+            <span style="background: rgba(232, 78, 27, 0.15); color: var(--orange); border: 1px solid rgba(232, 78, 27, 0.3); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 50px;">
+              ⚡ 24/7 ONLINE
+            </span>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label id="lbl-level">Game Level</label>
-          <div class="select-wrapper">
-            <select id="param-level">
-              <!-- Rebuilt dynamically -->
-            </select>
+          <!-- Quick Presets -->
+          <div style="margin-bottom: 20px; text-align: left;">
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px;">Presets Rápidos</label>
+            <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none;">
+              <button onclick="applyPreset('U12', 'Intermedio', '60 minutos', 'Mecánica de Tiro')" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #e2e8f0; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">🎯 Tiro 60 min (Sub-12)</button>
+              <button onclick="applyPreset('U16', 'Avanzado', '90 minutos', 'Defensa y Presión')" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #e2e8f0; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">🛡️ Defensa 90 min (Sub-16)</button>
+              <button onclick="applyPreset('U14', 'Intermedio', '75 minutos', 'Táctica y Pick & Roll')" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #e2e8f0; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">🧠 Pick & Roll 75 min (Sub-14)</button>
+              <button onclick="applyPreset('U10', 'Principiante', '45 minutos', 'Dribling y Control')" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #e2e8f0; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">🏀 Drible Sub-10 (45 min)</button>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label id="lbl-duration">Practice Duration</label>
-          <div class="select-wrapper">
-            <select id="param-duration">
-              <option value="45 minutos">45 minutes</option>
-              <option value="60 minutos" selected>60 minutes</option>
-              <option value="90 minutos">90 minutes</option>
-            </select>
+          <!-- Form Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; text-align: left;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label id="lbl-category">👥 Categoria del Equipo</label>
+              <div class="select-wrapper">
+                <select id="param-category">
+                  <!-- Rebuilt dynamically -->
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label id="lbl-level">🏆 Nivel de Juego</label>
+              <div class="select-wrapper">
+                <select id="param-level">
+                  <!-- Rebuilt dynamically -->
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label id="lbl-duration">⏱️ Duración del Entrenamiento</label>
+              <div class="select-wrapper">
+                <select id="param-duration">
+                  <option value="45 minutos">45 minutos</option>
+                  <option value="60 minutos" selected>60 minutos</option>
+                  <option value="75 minutos">75 minutos</option>
+                  <option value="90 minutos">90 minutos</option>
+                  <option value="120 minutos">120 minutos</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>🏟️ Espacio Disponible</label>
+              <div class="select-wrapper">
+                <select id="param-space">
+                  <option value="Cancha Entera" selected>Cancha Entera / Full Court</option>
+                  <option value="Media Cancha">Media Cancha / Half Court</option>
+                  <option value="Espacio Reducido">Espacio Reducido / 3x3</option>
+                </select>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label id="lbl-focus">Technical Focus</label>
-          <div class="select-wrapper">
-            <select id="param-focus">
-              <!-- Rebuilt dynamically -->
-            </select>
+          <div class="form-group" style="margin-top: 14px; margin-bottom: 0; text-align: left;">
+            <label id="lbl-focus">🎯 Foco Técnico del Día</label>
+            <div class="select-wrapper">
+              <select id="param-focus">
+                <!-- Rebuilt dynamically -->
+              </select>
+            </div>
           </div>
-        </div>
 
-        <button class="action-btn" id="btn-generate" onclick="generatePracticePlan()">Generate Practice with AI</button>
+          <button class="action-btn" id="btn-generate" onclick="generatePracticePlan()" style="margin-top: 20px; font-size: 16px; font-weight: 900; letter-spacing: 0.5px;">
+            ⚡ GENERAR ENTRENAMIENTO CON IA
+          </button>
+        </div>
 
         <div class="loader" id="planner-loader">
           <div class="dot"></div>
@@ -1002,28 +1048,36 @@
         splashSubtitle: "Seu Assistente de Treino de Basquete 24/7",
         btnStart: "INICIAR TREINO <span>➔</span>",
         categories: [
-          { val: "U10", text: "Sub-10 / Minibasket" },
+          { val: "U8", text: "Sub-8 / Iniciación" },
+          { val: "U10", text: "Sub-10 / Pre-Mini" },
+          { val: "U12", text: "Sub-12 / Mini Basquet" },
           { val: "U14", text: "Sub-14 / Desenvolvimento" },
+          { val: "U16", text: "Sub-16 / Infanto-Juvenil" },
           { val: "U18", text: "Sub-18 / Juvenil" },
           { val: "Adults", text: "Adultos / Profissional" }
         ],
         levels: [
           { val: "Principiante", text: "Iniciante / Básico" },
           { val: "Intermedio", text: "Intermediário / Desenvolvimento" },
-          { val: "Avanzado", text: "Avançado / Competitivo" }
+          { val: "Avanzado", text: "Avançado / Competitivo" },
+          { val: "Elite", text: "Alta Performance / Elite" }
         ],
         focuses: [
-          { val: "Tiro y Mecánica", text: "Arremesso & Mecânica de Chute" },
-          { val: "Manejo de Balón y Drible", text: "Drible & Controle de Bola" },
-          { val: "Pases y Transiciones", text: "Passe & Contra-ataque" },
-          { val: "Defensa Individual", text: "Defesa Individual & Posicionamento" },
-          { val: "Físico y Agilidad", text: "Físico, Impulsão & Agilidade" }
+          { val: "Dribling y Control", text: "Drible Avançado & Controle de Bola" },
+          { val: "Mecánica de Tiro", text: "Arremesso Catch & Shoot & Tiro Livre" },
+          { val: "Finalizaciones", text: "Entradas em Bandeja, Eurostep & Flutuadoras" },
+          { val: "Defensa y Presión", text: "Defesa Individual & Pressão Total" },
+          { val: "Táctica y Pick & Roll", text: "Tática, Pick & Roll & Leitura de Jogo" },
+          { val: "Ataque Contra Zona", text: "Ataque Estruturado contra Zona 2-3 e 3-2" },
+          { val: "Transición Rápida", text: "Contra-Ataque Rápido & Transição" },
+          { val: "Físico y Agilidad", text: "Impulsão Vertical, Velocidade & Agilidade" }
         ],
         pills: [
           { text: "🏀 Aquecimento Sub-12", prompt: "Gere um aquecimento de treino criativo e dinâmico de basquete focado em drible para a categoria Sub-12." },
-          { text: "🏃 Treino com 6 jogadores", prompt: "Sugira um exercício dinâmico de meia quadra para apenas 6 jogadores com foco em tomada de decisão." },
+          { text: "🎯 Arremesso Catch & Shoot", prompt: "Crie um circuito intensivo de arremesso catch & shoot com 5 estações e contagem de pontos." },
           { text: "🛡️ Quebrar zona 2-3", prompt: "Quais as melhores estratégias e movimentações táticas para quebrar uma defesa por zona 2-3?" },
-          { text: "⚡ Passe em transição 3x3", prompt: "Gere um exercício de passe em transição contínua 3 contra 3 com finalização rápida." }
+          { text: "⚡ Transição 3x2 -> 2x1", prompt: "Gere um exercício de transição contínua 3x2 e 2x1 com foco em tomada rápida de decisão." },
+          { text: "🧠 Pick & Roll Sub-16", prompt: "Explique como treinar a leitura do armador no Pick & Roll lateral com 3 variações de passe." }
         ]
       },
       es: {
@@ -1044,31 +1098,39 @@
         chatPlaceholder: "Escribe tu pregunta táctica aquí...",
         chatWelcome: "¡Hola! Soy tu asistente de Playbook. ¿En qué táctica o ejercicio te gustaría trabajar hoy?",
         splashTitle: "CoachBrain AI",
-        splashSubtitle: "",
-        btnStart: "START PRACTICE / INICIAR ENTRENAMIENTO <span>➔</span>",
+        splashSubtitle: "Tu Asistente Digital de Entrenador 24/7",
+        btnStart: "INICIAR ENTRENAMIENTO <span>➔</span>",
         categories: [
-          { val: "U10", text: "Sub-10 / Minibasket" },
+          { val: "U8", text: "Sub-8 / Iniciación" },
+          { val: "U10", text: "Sub-10 / Pre-Mini" },
+          { val: "U12", text: "Sub-12 / Mini Baloncesto" },
           { val: "U14", text: "Sub-14 / Infantil" },
+          { val: "U16", text: "Sub-16 / Cadete" },
           { val: "U18", text: "Sub-18 / Juvenil" },
           { val: "Adults", text: "Adultos / Profesional" }
         ],
         levels: [
           { val: "Principiante", text: "Principiante / Básico" },
           { val: "Intermedio", text: "Intermedio / Desarrollo" },
-          { val: "Avanzado", text: "Avanzado / Competitivo" }
+          { val: "Avanzado", text: "Avanzado / Competitivo" },
+          { val: "Elite", text: "Alto Rendimiento / Elite" }
         ],
         focuses: [
-          { val: "Tiro y Mecánica", text: "Tiro y Mecánica de Lanzamiento" },
-          { val: "Manejo de Balón y Drible", text: "Drible y Control de Balón" },
-          { val: "Pases y Transiciones", text: "Pases y Contraataque" },
-          { val: "Defensa Individual", text: "Defensa Individual y Posicionamiento" },
-          { val: "Físico y Agilidad", text: "Impulsión, Velocidad y Agilidad" }
+          { val: "Dribling y Control", text: "Drible Avanzado y Manejo de Balón" },
+          { val: "Mecánica de Tiro", text: "Tiro Catch & Shoot y Tiro Libre" },
+          { val: "Finalizaciones", text: "Entradas en Bandeja, Eurostep y Flotadoras" },
+          { val: "Defensa y Presión", text: "Defensa Individual y Presión Toda Cancha" },
+          { val: "Táctica y Pick & Roll", text: "Táctica, Bloqueo Directo Pick & Roll" },
+          { val: "Ataque Contra Zona", text: "Ataque Estructurado contra Zona 2-3 y 3-2" },
+          { val: "Transición Rápida", text: "Contraataque Rápido y Transición 3x2" },
+          { val: "Físico y Agilidad", text: "Impulsión Vertical, Velocidad y Agilidad" }
         ],
         pills: [
           { text: "🏀 Calentamiento Sub-12", prompt: "Genera un calentamiento de tiro creativo y dinámico para la categoría Sub-12." },
-          { text: "🏃 Entreno 6 jugadores", prompt: "Sugiere un ejercicio dinámico de media cancha para exactamente 6 jugadores con foco en toma de decisiones." },
+          { text: "🎯 Circuito de Tiro Catch & Shoot", prompt: "Crea un circuito intensivo de tiro catch & shoot con 5 estaciones y puntaje." },
           { text: "🛡️ Romper zona 2-3", prompt: "¿Cuáles son las mejores jugadas tácticas para romper una defensa en zona 2-3?" },
-          { text: "⚡ Pase transición 3x3", prompt: "Ejercicios de pase en transición continua 3 contra 3 con finalización." }
+          { text: "⚡ Transición 3x2 -> 2x1", prompt: "Ejercicios de transición continua 3x2 y 2x1 con decisión rápida." },
+          { text: "🧠 Lectura Pick & Roll Sub-16", prompt: "Explica cómo entrenar la lectura del base en el Pick & Roll lateral con 3 opciones." }
         ]
       },
       en: {
@@ -1089,15 +1151,41 @@
         chatPlaceholder: "Ask your tactical question here...",
         chatWelcome: "Hello! I am your Playbook assistant. What tactics or drills would you like to work on today?",
         splashTitle: "CoachBrain AI",
-        splashSubtitle: "",
-        btnStart: "START PRACTICE / INICIAR ENTRENAMIENTO <span>➔</span>",
+        splashSubtitle: "Your 24/7 Digital Basketball Coach",
+        btnStart: "START PRACTICE <span>➔</span>",
         categories: [
-          { val: "U10", text: "Under-10 / Minibasket" },
+          { val: "U8", text: "Under-8 / Beginners" },
+          { val: "U10", text: "Under-10 / Pre-Mini" },
+          { val: "U12", text: "Under-12 / Mini Basketball" },
           { val: "U14", text: "Under-14 / Development" },
+          { val: "U16", text: "Under-16 / Cadets" },
           { val: "U18", text: "Under-18 / Youth" },
           { val: "Adults", text: "Adults / Professional" }
         ],
         levels: [
+          { val: "Principiante", text: "Beginner / Basic" },
+          { val: "Intermedio", text: "Intermediate / Development" },
+          { val: "Avanzado", text: "Advanced / Competitive" },
+          { val: "Elite", text: "High Performance / Elite" }
+        ],
+        focuses: [
+          { val: "Dribling y Control", text: "Advanced Dribbling & Ball Handling" },
+          { val: "Mecánica de Tiro", text: "Catch & Shoot Mechanics & Free Throws" },
+          { val: "Finalizaciones", text: "Layups, Eurosteps & Tear Drops" },
+          { val: "Defensa y Presión", text: "Man-to-Man Defense & Full Court Press" },
+          { val: "Táctica y Pick & Roll", text: "Tactics, Pick & Roll & Court Vision" },
+          { val: "Ataque Contra Zona", text: "Zone Offense vs 2-3 & 3-2 Defenses" },
+          { val: "Transición Rápida", text: "Fast Break & 3v2 Transition Drills" },
+          { val: "Físico y Agilidad", text: "Vertical Jump, Speed & Agility Circuits" }
+        ],
+        pills: [
+          { text: "🏀 Warmup Sub-12", prompt: "Generate a creative and dynamic basketball shooting warmup for U12 players." },
+          { text: "🎯 Catch & Shoot Circuit", prompt: "Create an intensive catch & shoot drill circuit with 5 stations and scoring." },
+          { text: "🛡️ Break 2-3 Zone", prompt: "What are the best tactical plays and ball movements to break a 2-3 zone defense?" },
+          { text: "⚡ 3v2 -> 2v1 Transition", prompt: "Design a continuous 3v2 and 2v1 fast break transition drill focused on quick decision making." },
+          { text: "🧠 Pick & Roll U16", prompt: "Explain how to coach point guard decision making on side Pick & Roll with 3 pass options." }
+        ]
+      }
           { val: "Principiante", text: "Beginner / Basic" },
           { val: "Intermedio", text: "Intermediate / Development" },
           { val: "Avanzado", text: "Advanced / Competitive" }
@@ -1233,6 +1321,30 @@
       document.documentElement.style.overflow = 'auto';
       
       if (typeof renderPlaybook === 'function') renderPlaybook();
+    }
+
+    function applyPreset(cat, lvl, dur, foc) {
+      const catEl = document.getElementById('param-category');
+      const lvlEl = document.getElementById('param-level');
+      const durEl = document.getElementById('param-duration');
+      const focEl = document.getElementById('param-focus');
+
+      if (catEl && cat) {
+        for (let opt of catEl.options) {
+          if (opt.value === cat || opt.text.includes(cat)) { catEl.value = opt.value; break; }
+        }
+      }
+      if (lvlEl && lvl) {
+        for (let opt of lvlEl.options) {
+          if (opt.value === lvl || opt.text.includes(lvl)) { lvlEl.value = opt.value; break; }
+        }
+      }
+      if (durEl && dur) durEl.value = dur;
+      if (focEl && foc) {
+        for (let opt of focEl.options) {
+          if (opt.value === foc || opt.text.includes(foc)) { focEl.value = opt.value; break; }
+        }
+      }
     }
 
     function setLanguage(lang) {
