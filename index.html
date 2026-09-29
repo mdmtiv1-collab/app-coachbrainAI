@@ -823,8 +823,9 @@
     <div class="splash-card">
       <div class="splash-logo">🏀</div>
       <h1 class="splash-title">Coach<span>Brain</span> AI</h1>
+      <p id="splash-sub-text" style="font-size: 13.5px; color: var(--text-muted); margin: 10px 0 20px;">O Teu Assistente Digital de Basquetebol 24/7</p>
       <button class="splash-btn" id="splash-start-btn" onclick="startApp()">
-        INICIAR ENTRENAMIENTO <span>➔</span>
+        INICIAR TREINO <span>➔</span>
       </button>
     </div>
   </div>
@@ -836,17 +837,12 @@
         <span class="brand-logo">🏀</span>
         <div class="brand-title">Coach<span>Brain</span> AI</div>
       </div>
-      <div class="lang-toggle">
-        <button class="lang-btn" onclick="setLanguage('en')">EN</button>
-        <button class="lang-btn active" onclick="setLanguage('es')">ES</button>
-      </div>
     </header>
 
     <div class="tabs-bar">
-      <button id="tab-planner-btn" class="tab-btn active" onclick="switchTab('planner')">Planificador</button>
-      <button id="tab-chat-btn" class="tab-btn" onclick="switchTab('chat')">Playbook AI Chat</button>
-      <button id="tab-playbook-btn" class="tab-btn" onclick="switchTab('playbook')">Mi Playbook</button>
-      <button id="tab-drills-btn" class="tab-btn" onclick="switchTab('drills')">+150 Ejercicios</button>
+      <button id="tab-planner-btn" class="tab-btn active" onclick="switchTab('planner')">Planificador de Treino</button>
+      <button id="tab-chat-btn" class="tab-btn" onclick="switchTab('chat')">Assistente IA</button>
+      <button id="tab-playbook-btn" class="tab-btn" onclick="switchTab('playbook')">O Meu Playbook</button>
     </div>
 
     <div class="content-area">
@@ -859,8 +855,8 @@
             <div style="display: flex; align-items: center; gap: 10px;">
               <span style="font-size: 22px;">📋</span>
               <div style="text-align: left;">
-                <h3 style="font-size: 16px; font-weight: 800; color: #fff; margin: 0;">Generador de Práctica AI</h3>
-                <span style="font-size: 12px; color: var(--text-muted);">Configura tu sesión completa en segundos</span>
+                <h3 style="font-size: 16px; font-weight: 800; color: #fff; margin: 0;">Gerador Inteligente de Treinos IA</h3>
+                <span style="font-size: 12px; color: var(--text-muted);">Configura a tua sessão completa em segundos</span>
               </div>
             </div>
             <span style="background: rgba(232, 78, 27, 0.15); color: var(--orange); border: 1px solid rgba(232, 78, 27, 0.3); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 50px;">
@@ -872,8 +868,8 @@
           <div style="margin-bottom: 20px; text-align: left;">
             <label style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px;">Presets Rápidos</label>
             <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none;">
-              <button onclick="applyPreset('U12', 'Intermedio', '60 minutos', 'Mecánica de Tiro')" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #e2e8f0; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">🎯 Tiro 60 min (Sub-12)</button>
-              <button onclick="applyPreset('U16', 'Avanzado', '90 minutos', 'Defensa y Presión')" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #e2e8f0; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">🛡️ Defensa 90 min (Sub-16)</button>
+              <button onclick="applyPreset('U12', 'Intermedio', '60 minutos', 'Mecánica de Tiro')" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #e2e8f0; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">🎯 Lançamento 60 min (Sub-12)</button>
+              <button onclick="applyPreset('U16', 'Avanzado', '90 minutos', 'Defensa y Presión')" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #e2e8f0; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">🛡️ Defesa 90 min (Sub-16)</button>
               <button onclick="applyPreset('U14', 'Intermedio', '75 minutos', 'Táctica y Pick & Roll')" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #e2e8f0; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">🧠 Pick & Roll 75 min (Sub-14)</button>
               <button onclick="applyPreset('U10', 'Principiante', '45 minutos', 'Dribling y Control')" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #e2e8f0; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">🏀 Drible Sub-10 (45 min)</button>
             </div>
@@ -882,7 +878,7 @@
           <!-- Form Grid -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; text-align: left;">
             <div class="form-group" style="margin-bottom: 0;">
-              <label id="lbl-category">👥 Categoria del Equipo</label>
+              <label id="lbl-category">👥 Escalão da Equipa</label>
               <div class="select-wrapper">
                 <select id="param-category">
                   <!-- Rebuilt dynamically -->
@@ -891,7 +887,7 @@
             </div>
 
             <div class="form-group" style="margin-bottom: 0;">
-              <label id="lbl-level">🏆 Nivel de Juego</label>
+              <label id="lbl-level">🏆 Nível de Jogo</label>
               <div class="select-wrapper">
                 <select id="param-level">
                   <!-- Rebuilt dynamically -->
@@ -900,7 +896,7 @@
             </div>
 
             <div class="form-group" style="margin-bottom: 0;">
-              <label id="lbl-duration">⏱️ Duración del Entrenamiento</label>
+              <label id="lbl-duration">⏱️ Duração do Treino</label>
               <div class="select-wrapper">
                 <select id="param-duration">
                   <option value="45 minutos">45 minutos</option>
@@ -913,19 +909,19 @@
             </div>
 
             <div class="form-group" style="margin-bottom: 0;">
-              <label>🏟️ Espacio Disponible</label>
+              <label>🏟️ Espaço Disponível</label>
               <div class="select-wrapper">
                 <select id="param-space">
-                  <option value="Cancha Entera" selected>Cancha Entera / Full Court</option>
-                  <option value="Media Cancha">Media Cancha / Half Court</option>
-                  <option value="Espacio Reducido">Espacio Reducido / 3x3</option>
+                  <option value="Cancha Entera" selected>Campo Inteiro / Full Court</option>
+                  <option value="Media Cancha">Meio Campo / Half Court</option>
+                  <option value="Espacio Reducido">Espaço Reducido / 3x3</option>
                 </select>
               </div>
             </div>
           </div>
 
           <div class="form-group" style="margin-top: 14px; margin-bottom: 0; text-align: left;">
-            <label id="lbl-focus">🎯 Foco Técnico del Día</label>
+            <label id="lbl-focus">🎯 Foco Técnico do Dia</label>
             <div class="select-wrapper">
               <select id="param-focus">
                 <!-- Rebuilt dynamically -->
@@ -934,7 +930,7 @@
           </div>
 
           <button class="action-btn" id="btn-generate" onclick="generatePracticePlan()" style="margin-top: 20px; font-size: 16px; font-weight: 900; letter-spacing: 0.5px;">
-            ⚡ GENERAR ENTRENAMIENTO CON IA
+            ⚡ GERAR TREINO COM IA
           </button>
         </div>
 
@@ -946,10 +942,10 @@
 
         <div class="result-card" id="result-box">
           <div class="result-header">
-            <span class="result-title" id="lbl-result-title">Suggested Plan</span>
+            <span class="result-title" id="lbl-result-title">Treino Sugerido</span>
             <div style="display: flex; gap: 8px;">
-              <button class="copy-btn" id="btn-copy" onclick="copyResult()">Copy Plan</button>
-              <button class="save-btn" id="btn-save-planner" onclick="savePlannerResult()" style="display: none;">💾 Save</button>
+              <button class="copy-btn" id="btn-copy" onclick="copyResult()">Copiar Plano</button>
+              <button class="save-btn" id="btn-save-planner" onclick="savePlannerResult()" style="display: none;">💾 Guardar</button>
             </div>
           </div>
           <div class="result-body" id="result-text"></div>
@@ -960,11 +956,11 @@
       <div id="chat-tab" class="tab-content">
         <div class="chat-container">
           <div class="chat-messages" id="chat-box">
-            <div class="message ai" id="chat-welcome">Hello! I am your Playbook assistant. What tactics or drills would you like to work on today?</div>
+            <div class="message ai" id="chat-welcome">Olá! Sou o teu assistente de treino de basquetebol. Em que tática ou exercício gostarias de trabalhar hoje?</div>
           </div>
           <div class="prompt-pills-container" id="prompt-pills"></div>
           <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chat-input-field" placeholder="Ask your tactical question here..." onkeydown="handleChatKey(event)">
+            <input type="text" class="chat-input" id="chat-input-field" placeholder="Escreve a tua pergunta tática aqui..." onkeydown="handleChatKey(event)">
             <button class="send-btn" onclick="sendChatMessage()">➔</button>
           </div>
         </div>
@@ -973,30 +969,11 @@
       <!-- My Playbook Tab -->
       <div id="playbook-tab" class="tab-content">
         <div class="playbook-header">
-          <h2 id="lbl-playbook-title">My Playbook</h2>
-          <p id="lbl-playbook-subtitle">Saved practice plans and tactical answers.</p>
+          <h2 id="lbl-playbook-title">O Meu Playbook</h2>
+          <p id="lbl-playbook-subtitle">Planos de treino e respostas táticas guardadas.</p>
         </div>
         <div id="playbook-list" class="playbook-grid">
           <!-- Populated dynamically -->
-        </div>
-      </div>
-
-      <!-- +150 Drills Tab -->
-      <div id="drills-tab" class="tab-content">
-        <div style="text-align: center; max-width: 500px; margin: 20px auto; padding: 25px 20px; background: var(--surface-card); border: 1px solid var(--border); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-          <div style="font-size: 40px; margin-bottom: 12px;">🏀</div>
-          <h2 style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px;">+150 Drills Library / Biblioteca +150 Ejercicios</h2>
-          <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">
-            Access the complete members area with +150 HD video drills. Select your language below to enter:
-          </p>
-          <div style="display: flex; flex-direction: column; gap: 14px; width: 100%;">
-            <a href="https://members-150basketball.vercel.app/" target="_blank" rel="noopener noreferrer" class="action-btn" style="display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;">
-              🇺🇸 English Version / Versión en Inglés
-            </a>
-            <a href="https://entrenamientosdebaloncesto.vercel.app/" target="_blank" rel="noopener noreferrer" class="action-btn" style="display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; background: linear-gradient(90deg, #3b82f6, #60a5fa); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
-              🇪🇸 Versión en Español / Spanish Version
-            </a>
-          </div>
         </div>
       </div>
     </div>
@@ -1350,7 +1327,6 @@
       setElText('tab-planner-btn', trans.plannerTab);
       setElText('tab-chat-btn', trans.chatTab);
       setElText('tab-playbook-btn', trans.playbookTab);
-      setElText('tab-drills-btn', trans.drillsTab);
       
       setElText('lbl-category', trans.lblCategory);
       setElText('lbl-level', trans.lblLevel);
@@ -1415,7 +1391,7 @@
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       
       // Determine index based on tab name
-      const tabIndices = { 'planner': 0, 'chat': 1, 'playbook': 2, 'drills': 3 };
+      const tabIndices = { 'planner': 0, 'chat': 1, 'playbook': 2 };
       document.querySelectorAll('.tab-btn')[tabIndices[tab]].classList.add('active');
 
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
