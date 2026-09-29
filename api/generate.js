@@ -19,9 +19,9 @@ module.exports = async (req, res) => {
 
   if (!apiKey) {
     return res.status(500).json({ 
-      error: language === 'es' 
+      error: (language === 'pt' || language === 'pt-PT') 
         ? 'Chave API da OpenAI não configurada no servidor Vercel.' 
-        : 'OpenAI API Key is not configured in Vercel environment variables.' 
+        : (language === 'es' ? 'Chave API da OpenAI não configurada no servidor Vercel.' : 'OpenAI API Key is not configured in Vercel environment variables.')
     });
   }
 
@@ -29,7 +29,20 @@ module.exports = async (req, res) => {
   let userPrompt = "";
 
   if (type === 'planner') {
-    if (language === 'es') {
+    if (language === 'pt' || language === 'pt-PT') {
+      systemPrompt = "És um treinador assistente de basquetebol de nível de elite (FIBA / NBA) especialista em planeamento tático e metodológico. Desenhas planos de treino hiper-estruturados, dinâmicos e eficientes. O teu tom é profissional, motivador e claro.";
+      userPrompt = `Cria um plano de treino de basquetebol minuto a minuto com os seguintes parâmetros:
+- Escalão da Equipa: ${category}
+- Nível dos jogadores: ${level}
+- Duração total: ${duration}
+- Foco técnico da sessão: ${focus}
+
+Instruções metodológicas importantes:
+1. Divide o treino em secções lógicas (ex: Aquecimento, Parte Técnica, Parte Tática, Jogo/Competição e Retorno à Calma).
+2. Para cada secção, indica o tempo exato (ex: 0-10 min) e detalha o que o treinador e os jogadores devem fazer.
+3. Como o utilizador já possui o nosso produto principal de "+150 Exercícios de Basquetebol em Vídeo", integra pelo menos 1 ou 2 exercícios específicos dessa biblioteca correspondentes ao foco de hoje (Drible, Lançamento, Defesa, Passe, Agilidade) e menciona-os sob a forma: "(Utiliza o Exercício X do catálogo de vídeos na tua área de membros)".
+4. O plano de treino completo deve ser respondido integralmente em Português de Portugal.`;
+    } else if (language === 'es') {
       systemPrompt = "Eres un entrenador asistente de baloncesto de nivel élite (FIBA / NBA) experto en planificación táctica y metodológica. Diseñas planes de entrenamiento hiper-estructurados, dinámicos y eficientes. Tu tono es profesional, motivador y claro.";
       userPrompt = `Crea un plan de entrenamiento de baloncesto minuto a minuto con los siguientes parámetros:
 - Categoría del Equipo: ${category}
@@ -71,7 +84,10 @@ Important methodological instructions:
     }
   } else {
     // Chat Mode
-    if (language === 'es') {
+    if (language === 'pt' || language === 'pt-PT') {
+      systemPrompt = "És um treinador de basquetebol especialista em tática, quadros de jogo e preparação física. Ajudas treinadores com conselhos práticos, jogadas ensaiadas, saídas de pressão e correções técnicas de exercícios. Responde sempre em Português de Portugal e mantém as tuas explicações claras e aplicáveis no pavilhão.";
+      userPrompt = message;
+    } else if (language === 'es') {
       systemPrompt = "Eres un entrenador de baloncesto experto en táctica, pizarra y preparación física. Ayudas a los entrenadores con consejos prácticos, jugadas de pizarra ensayadas, salidas de presión y correcciones técnicas de ejercicios. Responde siempre en español y mantén tus explicaciones claras y aplicables en cancha.";
       userPrompt = message;
     } else if (language === 'fr') {
@@ -103,30 +119,27 @@ Important methodological instructions:
     }
   };
 
-  const request = https.request(options, (response) => {
-    let rawData = '';
-    response.on('data', (chunk) => { rawData += chunk; });
-    response.on('end', () => {
+  const reqApi = https.request(options, (resApi) => {
+    let responseBody = '';
+    resApi.on('data', (chunk) => { responseBody += chunk; });
+    resApi.on('end', () => {
       try {
-        const parsed = JSON.parse(rawData);
-        if (parsed.choices && parsed.choices[0]) {
-          const resultText = parsed.choices[0].message.content.trim();
-          res.status(200).json({ result: resultText });
-        } else if (parsed.error) {
-          res.status(400).json({ error: parsed.error.message });
-        } else {
-          res.status(500).json({ error: 'Unexpected response from OpenAI API.' });
+        const json = JSON.parse(responseBody);
+        if (json.error) {
+          return res.status(400).json({ error: json.error.message || 'OpenAI API Error' });
         }
+        const text = json.choices && json.choices[0] && json.choices[0].message ? json.choices[0].message.content : '';
+        return res.status(200).json({ result: text });
       } catch (e) {
-        res.status(500).json({ error: 'Error parsing OpenAI API response.' });
+        return res.status(500).json({ error: 'Failed to parse OpenAI response' });
       }
     });
   });
 
-  request.on('error', (e) => {
-    res.status(500).json({ error: e.message });
+  reqApi.on('error', (e) => {
+    res.status(500).json({ error: e.message || 'API Request failed' });
   });
 
-  request.write(postData);
-  request.end();
+  reqApi.write(postData);
+  reqApi.end();
 };

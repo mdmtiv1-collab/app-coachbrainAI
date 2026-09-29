@@ -1023,61 +1023,61 @@
   </div>
 
   <script>
-    let currentLang = 'es';
+    let currentLang = 'pt';
     let currentTab = 'planner';
 
     const translations = {
       pt: {
-        plannerTab: "Estúdio de Planejamento",
+        plannerTab: "Estúdio de Planeamento",
         chatTab: "Assistente Chat",
-        playbookTab: "Meu Playbook",
+        playbookTab: "O Meu Playbook",
         drillsTab: "+150 Treinos",
-        lblCategory: "Categoria do Time",
+        lblCategory: "Escalão da Equipa",
         lblLevel: "Nível de Jogo",
         lblDuration: "Duração do Treino",
         lblFocus: "Foco Técnico do Dia",
         btnGenerate: "Gerar Treino com IA",
         lblResultTitle: "Treino Sugerido",
         btnCopy: "Copiar Plano",
-        btnSave: "💾 Salvar",
-        lblSaved: "Salvo! ✓",
-        lblNoSaved: "Nenhum plano ou resposta tática salva ainda. Comece a planejar e salve suas rotinas!",
-        chatPlaceholder: "Digite sua pergunta tática aqui...",
-        chatWelcome: "Olá! Sou seu assistente de treino. Em qual tática ou exercício gostaria de trabalhar hoje?",
+        btnSave: "💾 Guardar",
+        lblSaved: "Guardado! ✓",
+        lblNoSaved: "Nenhum plano ou resposta tática guardada. Começa a planear e guarda as tuas rotinas aqui!",
+        chatPlaceholder: "Escreve a tua pergunta tática aqui...",
+        chatWelcome: "Olá! Sou o teu assistente de treino. Em que tática ou exercício gostarias de trabalhar hoje?",
         splashTitle: "CoachBrain AI",
-        splashSubtitle: "Seu Assistente de Treino de Basquete 24/7",
+        splashSubtitle: "O Teu Assistente Digital de Basquetebol 24/7",
         btnStart: "INICIAR TREINO <span>➔</span>",
         categories: [
-          { val: "U8", text: "Sub-8 / Iniciación" },
-          { val: "U10", text: "Sub-10 / Pre-Mini" },
-          { val: "U12", text: "Sub-12 / Mini Basquet" },
-          { val: "U14", text: "Sub-14 / Desenvolvimento" },
-          { val: "U16", text: "Sub-16 / Infanto-Juvenil" },
-          { val: "U18", text: "Sub-18 / Juvenil" },
+          { val: "U8", text: "Sub-8 / Iniciação" },
+          { val: "U10", text: "Sub-10 / Minibasquete" },
+          { val: "U12", text: "Sub-12 / Minibasquete" },
+          { val: "U14", text: "Sub-14 / Formação" },
+          { val: "U16", text: "Sub-16 / Cadetes" },
+          { val: "U18", text: "Sub-18 / Juniores" },
           { val: "Adults", text: "Adultos / Profissional" }
         ],
         levels: [
           { val: "Principiante", text: "Iniciante / Básico" },
-          { val: "Intermedio", text: "Intermediário / Desenvolvimento" },
+          { val: "Intermedio", text: "Intermédio / Desenvolvimento" },
           { val: "Avanzado", text: "Avançado / Competitivo" },
-          { val: "Elite", text: "Alta Performance / Elite" }
+          { val: "Elite", text: "Alto Rendimento / Elite" }
         ],
         focuses: [
-          { val: "Dribling y Control", text: "Drible Avançado & Controle de Bola" },
-          { val: "Mecánica de Tiro", text: "Arremesso Catch & Shoot & Tiro Livre" },
-          { val: "Finalizaciones", text: "Entradas em Bandeja, Eurostep & Flutuadoras" },
-          { val: "Defensa y Presión", text: "Defesa Individual & Pressão Total" },
+          { val: "Dribling y Control", text: "Drible Avançado & Controlo de Bola" },
+          { val: "Mecánica de Tiro", text: "Lançamento Catch & Shoot & Lance Livre" },
+          { val: "Finalizaciones", text: "Lançamentos em Passada, Eurostep & Flutuadoras" },
+          { val: "Defensa y Presión", text: "Defesa Individual & Pressão no Campo Inteiro" },
           { val: "Táctica y Pick & Roll", text: "Tática, Pick & Roll & Leitura de Jogo" },
           { val: "Ataque Contra Zona", text: "Ataque Estruturado contra Zona 2-3 e 3-2" },
           { val: "Transición Rápida", text: "Contra-Ataque Rápido & Transição" },
           { val: "Físico y Agilidad", text: "Impulsão Vertical, Velocidade & Agilidade" }
         ],
         pills: [
-          { text: "🏀 Aquecimento Sub-12", prompt: "Gere um aquecimento de treino criativo e dinâmico de basquete focado em drible para a categoria Sub-12." },
-          { text: "🎯 Arremesso Catch & Shoot", prompt: "Crie um circuito intensivo de arremesso catch & shoot com 5 estações e contagem de pontos." },
-          { text: "🛡️ Quebrar zona 2-3", prompt: "Quais as melhores estratégias e movimentações táticas para quebrar uma defesa por zona 2-3?" },
-          { text: "⚡ Transição 3x2 -> 2x1", prompt: "Gere um exercício de transição contínua 3x2 e 2x1 com foco em tomada rápida de decisão." },
-          { text: "🧠 Pick & Roll Sub-16", prompt: "Explique como treinar a leitura do armador no Pick & Roll lateral com 3 variações de passe." }
+          { text: "🏀 Aquecimento Sub-12", prompt: "Gera um aquecimento de treino criativo e dinâmico de basquetebol focado em drible para o escalão Sub-12." },
+          { text: "🎯 Lançamento Catch & Shoot", prompt: "Cria um circuito intensivo de lançamento catch & shoot com 5 estações e contagem de pontos." },
+          { text: "🛡️ Superar zona 2-3", prompt: "Quais as melhores estratégias e movimentações táticas para superar uma defesa à zona 2-3?" },
+          { text: "⚡ Transição 3x2 -> 2x1", prompt: "Gera um exercício de transição contínua 3x2 e 2x1 com foco em tomada rápida de decisão." },
+          { text: "🧠 Pick & Roll Sub-16", prompt: "Explica como treinar a leitura do base no Pick & Roll lateral com 3 variações de passe." }
         ]
       },
       es: {
@@ -1712,7 +1712,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      setLanguage('es'); // Default language set to Spanish
+      setLanguage('pt'); // Default language set to Português de Portugal (PT-PT)
       const splashBtn = document.getElementById('splash-start-btn');
       if (splashBtn) {
         splashBtn.addEventListener('click', startApp);
